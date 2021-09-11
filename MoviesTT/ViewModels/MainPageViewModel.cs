@@ -8,6 +8,8 @@ using System.Text;
 using Xamarin.Forms;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows.Input;
+using MoviesTT.Views;
 
 namespace MoviesTT.ViewModels
 {
@@ -27,14 +29,35 @@ namespace MoviesTT.ViewModels
 
 
         IRestApiService _restApiService;
-        public MainPageViewModel()
+        public MainPageViewModel(INavigation navigation) : base(navigation)
         {
             _restApiService = DependencyService.Get<IRestApiService>();
 
             Init();
         }
 
+       
+
+
         #region Properties
+
+        private ObservableCollection<Movie> _obtopRatedCatg;
+
+        public ObservableCollection<Movie> ObTopRatedCatg
+        {
+            get { return _obtopRatedCatg; }
+            set { SetValue(ref _obtopRatedCatg, value); }
+        }
+
+
+        private ObservableCollection<Movie> _obUpcomingCatg;
+
+        public ObservableCollection<Movie> ObUpcomingCatg
+        {
+            get { return _obUpcomingCatg; }
+            set { SetValue(ref _obUpcomingCatg, value); }
+        }
+
         private ObservableCollection<Movie> _obPupularCatg;
 
         public ObservableCollection<Movie> ObPupularCatg
@@ -66,11 +89,23 @@ namespace MoviesTT.ViewModels
             get { return _poster_path; }
             set { SetValue(ref _poster_path, value); }
         }
+
+        private Movie _selectedMovie;
+
+        public Movie SelectedMovie
+        {
+            get { return _selectedMovie; }
+            set {SetValue(ref _selectedMovie, value); }
+        }
+
+
         #endregion
 
         private async void Init()
         {
             await GetPupularMovies();
+            await GetTopRatedMovies();
+            await GetUpcomingMovies();
         }
         public async Task GetPupularMovies()
         {
@@ -88,6 +123,44 @@ namespace MoviesTT.ViewModels
                         }).ToList());
             }
         }
+
+        public async Task GetTopRatedMovies()
+        {
+            var categResp = await _restApiService.GetCategory<Category>(Constants.TopRatedCategory);
+
+            if (categResp != null)
+            {
+                ObTopRatedCatg = new ObservableCollection<Movie>
+                    (categResp.results
+                    .Take(10)
+                    .Select(mov => new Movie()
+                    {
+                        title = mov.title,
+                        vote_average = mov.vote_average,
+                        poster_path = $"{Constants.ImagesBaseUrl}{mov.poster_path}"
+                    }).ToList());
+            }
+        }
+
+        public async Task GetUpcomingMovies()
+        {
+            var categResp = await _restApiService.GetCategory<Category>(Constants.UpcomingCategory);
+
+            if (categResp != null)
+            {
+                ObUpcomingCatg = new ObservableCollection<Movie>
+                    (categResp.results
+                    .Take(10)
+                    .Select(mov => new Movie()
+                    {
+                        title = mov.title,
+                        vote_average = mov.vote_average,
+                        poster_path = $"{Constants.ImagesBaseUrl}{mov.poster_path}"
+                    }).ToList());
+            }
+        }
+
+
 
     }
 }

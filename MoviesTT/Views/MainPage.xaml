@@ -31,64 +31,170 @@
                 <Grid
                     Grid.Row="1"
                     BackgroundColor="Black"
-                    RowDefinitions="auto,auto,auto">
+                    RowDefinitions="250,250,250">
                     <!--<Path Aspect="Uniform"
 
                           Data="M 137.14258 42.519531 C 110.23401 42.519531 88.572266 64.183225 88.572266 91.091797 L 88.572266 262.51953 L 88.572266 1056.8047 L 88.572266 1102.5195 C 88.572266 1104.1024 89.844897 1105.377 91.427734 1105.377 L 137.14258 1105.377 L 691.42773 1105.377 L 737.14258 1105.377 C 738.72542 1105.377 740 1104.1024 740 1102.5195 L 740 1056.8047 L 740 262.51953 L 740 91.091797 C 740 64.183225 718.33631 42.519531 691.42773 42.519531 L 137.14258 42.519531 z " Fill="black"/>-->
-                    <Grid Grid.Row="0">
-                        <!--  RECOMMENDED FOR YOU  -->
-                        <Grid
-                            Margin="5"
-                            BackgroundColor="Gray"
-                            RowDefinitions="auto, auto">
-                            <Label
-                                Grid.Row="0"
-                                Text="RECOMMENDED FOR YOU"
-                                TextColor="White" />
-                            <CollectionView
-                                Grid.Row="1"
-                                FlowDirection="LeftToRight"
-                                ItemsLayout="HorizontalList"
-                                ItemsSource="{Binding ObPupularCatg}">
-                                <CollectionView.ItemTemplate>
-                                    <DataTemplate>
-                                        <StackLayout>
 
-                                            <Grid
-                                                Margin="10"
-                                                BackgroundColor="White"
-                                                RowDefinitions="auto, auto, auto"
-                                                RowSpacing="0">
+                    <!--  RECOMMENDED FOR YOU (POPULAR)  -->
+                    <Grid
+                        Grid.Row="0"
+                        Margin="5"
+                        BackgroundColor="Gray"
+                        RowDefinitions="auto, auto">
+                        <Label
+                            Grid.Row="0"
+                            Padding="10"
+                            Text="RECOMMENDED FOR YOU"
+                            TextColor="White" />
+                        <CollectionView
+                            Grid.Row="1"
+                            FlowDirection="LeftToRight"
+                            ItemsLayout="HorizontalList"
+                            ItemsSource="{Binding ObPupularCatg}"
+                            SelectedItem="{Binding SelectedMovie}"
+                            SelectionMode="Single"
+                            SelectionChangedCommand="{Binding OnSelectedItemCommand}">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <StackLayout>
 
-                                                <Image Aspect="AspectFit" HeightRequest="150">
-                                                    <Image.Source>
-                                                        <UriImageSource
-                                                            CacheValidity="15"
-                                                            CachingEnabled="True"
-                                                            Uri="{Binding poster_path}" />
-                                                    </Image.Source>
-                                                </Image>
-                                                <Label
-                                                    Grid.Row="1"
-                                                    HorizontalOptions="StartAndExpand"
-                                                    LineBreakMode="TailTruncation"
-                                                    Text="{Binding title, Converter={StaticResource TitleToShortTitle}}"
-                                                    TextType="Text" />
-                                                <Label
-                                                    Grid.Row="2"
-                                                    HorizontalOptions="End"
-                                                    Text="{Binding vote_average}" />
-                                            </Grid>
-                                        </StackLayout>
+                                        <Grid
+                                            Margin="10"
+                                            BackgroundColor="White"
+                                            RowDefinitions="auto, auto, auto"
+                                            RowSpacing="0">
 
-                                    </DataTemplate>
-                                </CollectionView.ItemTemplate>
-                            </CollectionView>
+                                            <Image Aspect="AspectFit" HeightRequest="150">
+                                                <Image.Source>
+                                                    <UriImageSource
+                                                        CacheValidity="15"
+                                                        CachingEnabled="True"
+                                                        Uri="{Binding poster_path}" />
+                                                </Image.Source>
+                                            </Image>
+                                            <Label
+                                                Grid.Row="1"
+                                                HorizontalOptions="StartAndExpand"
+                                                LineBreakMode="TailTruncation"
+                                                Text="{Binding title, Converter={StaticResource TitleToShortTitle}}"
+                                                TextType="Text" />
+                                            <Label
+                                                Grid.Row="2"
+                                                HorizontalOptions="End"
+                                                Text="{Binding vote_average}" />
+                                        </Grid>
+                                    </StackLayout>
 
-                        </Grid>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
 
+                    </Grid>
 
+                    <!--  TOP RATED (TOP_RATED)  -->
+                    <Grid
+                        Grid.Row="1"
+                        Margin="5"
+                        BackgroundColor="CornflowerBlue"
+                        RowDefinitions="auto, auto">
+                        <Label
+                            Grid.Row="0"
+                            Padding="10"
+                            Text="TOP RATED"
+                            TextColor="White" />
+                        <CollectionView
+                            Grid.Row="1"
+                            FlowDirection="LeftToRight"
+                            ItemsLayout="HorizontalList"
+                            ItemsSource="{Binding ObTopRatedCatg}">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <StackLayout>
 
+                                        <Grid
+                                            Margin="10"
+                                            BackgroundColor="White"
+                                            RowDefinitions="auto, auto, auto"
+                                            RowSpacing="0">
+
+                                            <Image Aspect="AspectFit" HeightRequest="150">
+                                                <Image.Source>
+                                                    <UriImageSource
+                                                        CacheValidity="15"
+                                                        CachingEnabled="True"
+                                                        Uri="{Binding poster_path}" />
+                                                </Image.Source>
+                                            </Image>
+                                            <Label
+                                                Grid.Row="1"
+                                                HorizontalOptions="StartAndExpand"
+                                                LineBreakMode="TailTruncation"
+                                                Text="{Binding title, Converter={StaticResource TitleToShortTitle}}"
+                                                TextType="Text" />
+                                            <Label
+                                                Grid.Row="2"
+                                                HorizontalOptions="End"
+                                                Text="{Binding vote_average}" />
+                                        </Grid>
+                                    </StackLayout>
+
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+
+                    </Grid>
+
+                    <!--  UPCOMING  (UPCOMING)  -->
+                    <Grid
+                        Grid.Row="2"
+                        Margin="5"
+                        BackgroundColor="Magenta"
+                        RowDefinitions="auto, auto">
+                        <Label
+                            Grid.Row="0"
+                            Padding="10"
+                            Text="UPCOMING"
+                            TextColor="White" />
+                        <CollectionView
+                            Grid.Row="1"
+                            FlowDirection="LeftToRight"
+                            ItemsLayout="HorizontalList"
+                            ItemsSource="{Binding ObUpcomingCatg}">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <StackLayout>
+
+                                        <Grid
+                                            Margin="10"
+                                            BackgroundColor="White"
+                                            RowDefinitions="auto, auto, auto"
+                                            RowSpacing="0">
+
+                                            <Image Aspect="AspectFit" HeightRequest="150">
+                                                <Image.Source>
+                                                    <UriImageSource
+                                                        CacheValidity="15"
+                                                        CachingEnabled="True"
+                                                        Uri="{Binding poster_path}" />
+                                                </Image.Source>
+                                            </Image>
+                                            <Label
+                                                Grid.Row="1"
+                                                HorizontalOptions="StartAndExpand"
+                                                LineBreakMode="TailTruncation"
+                                                Text="{Binding title, Converter={StaticResource TitleToShortTitle}}"
+                                                TextType="Text" />
+                                            <Label
+                                                Grid.Row="2"
+                                                HorizontalOptions="End"
+                                                Text="{Binding vote_average}" />
+                                        </Grid>
+                                    </StackLayout>
+
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
 
                     </Grid>
 
