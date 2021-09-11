@@ -3,7 +3,13 @@
     x:Class="MoviesTT.Views.MainPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:converter="clr-namespace:MoviesTT.Converters"
     BackgroundColor="#60A8D8">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converter:TitleToShortTitle x:Key="TitleToShortTitle" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <ContentPage.Content>
         <ScrollView>
             <Grid RowDefinitions="180, auto">
@@ -16,7 +22,7 @@
                             HorizontalTextAlignment="Center"
                             Text="Hello, what do you want to wath?"
                             TextColor="White" />
-                       
+
                         <SearchBar Grid.Row="1" BackgroundColor="#90C0D8" />
                     </Grid>
 
@@ -39,14 +45,22 @@
                                 Grid.Row="0"
                                 Text="RECOMMENDED FOR YOU"
                                 TextColor="White" />
-                            <CollectionView Grid.Row="1" ItemsSource="{Binding ObPupularCatg}" FlowDirection="LeftToRight" ItemsLayout="HorizontalList" >
+                            <CollectionView
+                                Grid.Row="1"
+                                FlowDirection="LeftToRight"
+                                ItemsLayout="HorizontalList"
+                                ItemsSource="{Binding ObPupularCatg}">
                                 <CollectionView.ItemTemplate>
                                     <DataTemplate>
-                                        <StackLayout >
-                                           
-                                            <Grid RowDefinitions="auto, auto, auto" RowSpacing="0" BackgroundColor="White" Margin="10">
+                                        <StackLayout>
 
-                                                <Image Aspect="AspectFit" HeightRequest="130">
+                                            <Grid
+                                                Margin="10"
+                                                BackgroundColor="White"
+                                                RowDefinitions="auto, auto, auto"
+                                                RowSpacing="0">
+
+                                                <Image Aspect="AspectFit" HeightRequest="150">
                                                     <Image.Source>
                                                         <UriImageSource
                                                             CacheValidity="15"
@@ -54,11 +68,19 @@
                                                             Uri="{Binding poster_path}" />
                                                     </Image.Source>
                                                 </Image>
-                                                <Label Grid.Row="1" HorizontalOptions="StartAndExpand" Text="{Binding title}" TextType="Text" LineBreakMode="TailTruncation"/>
-                                                <Label Grid.Row="2" HorizontalOptions="End" Text="{Binding vote_average}" />
+                                                <Label
+                                                    Grid.Row="1"
+                                                    HorizontalOptions="StartAndExpand"
+                                                    LineBreakMode="TailTruncation"
+                                                    Text="{Binding title, Converter={StaticResource TitleToShortTitle}}"
+                                                    TextType="Text" />
+                                                <Label
+                                                    Grid.Row="2"
+                                                    HorizontalOptions="End"
+                                                    Text="{Binding vote_average}" />
                                             </Grid>
                                         </StackLayout>
-                                        
+
                                     </DataTemplate>
                                 </CollectionView.ItemTemplate>
                             </CollectionView>

@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoviesTT.Android", "MoviesT
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoviesTT.iOS", "MoviesTT.iOS\MoviesTT.iOS.csproj", "{0B9E43DE-22B7-47BB-A235-11579FFC83C7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoviesTT", "MoviesTT\MoviesTT.csproj", "{356C55A3-9F2B-46A2-8936-6D72D7A96BF3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MoviesTT", "MoviesTT\MoviesTT.csproj", "{356C55A3-9F2B-46A2-8936-6D72D7A96BF3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

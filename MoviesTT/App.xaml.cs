@@ -1,6 +1,5 @@
-﻿using System;
+﻿using MoviesTT.Views;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 
 namespace MoviesTT
 {
