@@ -3,11 +3,17 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Text;
+using Xamarin.Forms;
 
 namespace MoviesTT.ViewModels
 {
     public abstract class BaseViewModel : INotifyPropertyChanged
     {
+        public INavigation Navigation { get; set; }
+        public BaseViewModel(INavigation navigation)
+        {
+            Navigation = navigation;
+        }
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
