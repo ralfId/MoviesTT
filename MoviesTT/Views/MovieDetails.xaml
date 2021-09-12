@@ -4,13 +4,28 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:controls="clr-namespace:MoviesTT.Controls"
+    xmlns:common="clr-namespace:MoviesTT.Common"
     BackgroundColor="#35364B"
     NavigationPage.HasNavigationBar="False">
     <ContentPage.Content>
         <ScrollView Padding="0,0,0,30">
             <StackLayout>
                 <!--  Poster movie  -->
-                <Image Aspect="AspectFill" HeightRequest="500">
+                <Grid RowDefinitions="50,auto">
+                    <Button
+                        Grid.Row="0"
+                        Padding="0"
+                        BackgroundColor="Red"
+                        HorizontalOptions="Start"
+                        >
+                        <Button.ImageSource>
+                            <FontImageSource FontFamily="FontIcons"
+                                             Glyph="{x:Static common:IconFont.Monitor}"
+                                             Color="White"
+                                             Size="50"/>
+                        </Button.ImageSource>
+                    </Button>
+                <Image Grid.RowSpan="2" Aspect="AspectFill" HeightRequest="500">
                     <Image.Source>
                         <UriImageSource
                             CacheValidity="15"
@@ -18,6 +33,8 @@
                             Uri="{Binding MovieD.poster_path}" />
                     </Image.Source>
                 </Image>
+                    
+                </Grid>
 
 
                 <!--  rating, title, watch, overview  -->
@@ -33,24 +50,20 @@
                         Text="{Binding MovieD.title}"
                         TextColor="White" />
 
-                    <Path
+                    <Button
                         Grid.Row="0"
                         Grid.Column="1"
-                        Aspect="Uniform"
-                        Fill="white"
-                        Data="M278.743,29.29H11.519C5.157,29.29,0,34.447,0,40.809v128.645v11.355v68.645c0,6.361,5.157,11.519,11.519,11.519h267.225
-		c6.361,0,11.519-5.157,11.519-11.519v-68.645v-11.355V40.809C290.262,34.447,285.104,29.29,278.743,29.29z M56.563,185.959H33.751
-		v15.375H54.19v4.813H33.751v18.748h-4.996v-43.748h27.809V185.959z M99.69,206.895c0,11.375-6.875,18.252-18.313,18.252
-		c-11.5,0-18.436-6.877-18.436-18.252v-25.748h5v25.748c0,8.5,5.122,13.439,13.436,13.439c8.313,0,13.313-4.939,13.313-13.439
-		v-25.748h5V206.895z M136.13,224.895h-24.188v-43.748h5v39.002h19.188V224.895z M168.444,224.895h-24.188v-43.748h4.998v39.002
-		h19.189V224.895z M214.693,224.895h-11.126v-16.998h-18.121v16.998h-11.127v-43.748h11.127v18h18.121v-18h11.126V224.895z
-		 M241.822,224.895h-18.376v-25.201h11.125v16.33h7.938c6.812,0,11.688-5.254,11.688-12.939c0-7.754-5.126-13.063-12.188-13.063
-		h-18.563v-8.875h18.813c13.75,0,23.248,8.875,23.248,21.873C265.507,215.957,255.882,224.895,241.822,224.895z M267.225,157.935
-		H23.037V52.327h244.188V157.935z"
-                        HeightRequest="25"
-                        WidthRequest="25"
-                        VerticalOptions="Center"
-                        HorizontalOptions="End"/>
+                        HorizontalOptions="End"
+                        BackgroundColor="Transparent"
+                        Padding="0"
+                        >
+                        <Button.ImageSource>
+                            <FontImageSource FontFamily="FontIcons"
+                                             Glyph="{x:Static common:IconFont.Monitor}"
+                                             Color="White"
+                                             Size="20"/>
+                        </Button.ImageSource>
+                    </Button>
 
                     <Button
                         Grid.Row="1"
@@ -67,20 +80,21 @@
                         Grid.Column="1"
                         HorizontalOptions="EndAndExpand"
                         MovieScore="{Binding MovieD.vote_average}"
-                        VerticalOptions="Center" />
+                        VerticalOptions="Center"
+                        />
                     <!--  overview  -->
                     <Label
                         Grid.Row="2"
                         Grid.ColumnSpan="2"
                         Margin="0,20,0,0"
                         FontSize="Medium"
-                        Text="{Binding MovieD.overview}" />
+                        Text="{Binding MovieD.overview}" 
+                        TextColor="White"/>
 
                 </Grid>
 
                 <!--  Actors  -->
                 <CollectionView
-                    BackgroundColor="Aqua"
                     FlowDirection="LeftToRight"
                     HeightRequest="200"
                     ItemsLayout="HorizontalList"
@@ -92,16 +106,15 @@
 
                                 <Grid
                                     Margin="10"
-                                    BackgroundColor="White"
                                     RowDefinitions="auto, auto"
                                     RowSpacing="0">
 
                                     <Frame
                                         Padding="0"
-                                        CornerRadius="100"
-                                        HeightRequest="150"
+                                        CornerRadius="200"
+                                        HeightRequest="100"
                                         IsClippedToBounds="True"
-                                        WidthRequest="150">
+                                        WidthRequest="100">
                                         <Image
                                             Aspect="AspectFill"
                                             HeightRequest="150"
@@ -119,7 +132,9 @@
                                         FontSize="Large"
                                         HorizontalOptions="Center"
                                         LineBreakMode="TailTruncation"
-                                        Text="{Binding name}" />
+                                        Text="{Binding name}" 
+                                        WidthRequest="100"
+                                        TextColor="White"/>
                                 </Grid>
                             </StackLayout>
 
@@ -138,42 +153,45 @@
                         Grid.Column="0"
                         FontSize="Large"
                         Text="Studio"
-                        TextColor="Black" />
+                        TextColor="White" 
+                        FontAttributes="Bold"/>
 
                     <Label
                         Grid.Row="0"
                         Grid.Column="1"
                         FontSize="Large"
                         Text="{Binding ProdCompany.name}"
-                        TextColor="Black" />
+                        TextColor="White"  />
                     <!--  Genre  -->
                     <Label
                         Grid.Row="1"
                         Grid.Column="0"
                         FontSize="Title"
                         Text="Genre"
-                        TextColor="Black" />
+                        TextColor="White" 
+                        FontAttributes="Bold" />
 
                     <Label
                         Grid.Row="1"
                         Grid.Column="1"
                         FontSize="Large"
                         Text="{Binding GenrList}"
-                        TextColor="Black" />
+                        TextColor="White" />
                     <!--  Release  -->
                     <Label
                         Grid.Row="2"
                         Grid.Column="0"
                         FontSize="Large"
                         Text="Release"
-                        TextColor="Black" />
+                        TextColor="White" 
+                        FontAttributes="Bold" />
 
                     <Label
                         Grid.Row="2"
                         Grid.Column="1"
                         FontSize="Large"
                         Text="{Binding MovieD.release_date}"
-                        TextColor="Black" />
+                        TextColor="White" />
                 </Grid>
             </StackLayout>
 
