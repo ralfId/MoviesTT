@@ -24,7 +24,7 @@
                         CornerRadius="10"
                         HeightRequest="150"
                         IsClippedToBounds="True">
-                        <Image Aspect="Fill">
+                        <Image Aspect="AspectFill">
                             <Image.Source>
                                 <UriImageSource
                                     CacheValidity="15"
@@ -71,8 +71,8 @@
                             PlaceholderColor="Gray"
                             Text="{Binding MovieTitle, Mode=TwoWay}"
                             TextColor="Black" />
-                    </Grid>
 
+                    </Grid>
                 </StackLayout>
 
                 <Path
@@ -97,6 +97,7 @@
                         <CollectionView
                             Grid.Row="1"
                             FlowDirection="LeftToRight"
+                            IsEnabled="False"
                             ItemSizingStrategy="MeasureFirstItem"
                             ItemTemplate="{StaticResource MovieCard}"
                             ItemsLayout="HorizontalList"

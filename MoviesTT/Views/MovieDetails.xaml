@@ -103,14 +103,25 @@
                     ItemsLayout="HorizontalList"
                     ItemsSource="{Binding ObActorsCast}"
                     SelectionMode="None">
+                    <CollectionView.EmptyView>
+                        <StackLayout>
+                            <Label
+                                Margin="10,25,10,10"
+                                FontAttributes="Bold"
+                                FontSize="Title" HorizontalTextAlignment="Center"
+                                Text="No cast listed for this movie."
+                                TextColor="White"/>
+                        </StackLayout>
+                    </CollectionView.EmptyView>
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
                             <StackLayout>
 
                                 <Grid
-                                    Margin="10"
+                                    Margin="10,0,10,0"
                                     RowDefinitions="auto, auto"
                                     RowSpacing="0">
+
 
                                     <Frame
                                         Padding="0"

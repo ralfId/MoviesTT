@@ -28,7 +28,7 @@ namespace MoviesTT.ViewModels
             Init();
         }
 
-        
+
         public ICommand OnSelectedItemCommand { get; private set; }
         #region Properties
 
@@ -86,7 +86,7 @@ namespace MoviesTT.ViewModels
         public Movie SelectedMovie
         {
             get { return _selectedMovie; }
-            set {SetValue(ref _selectedMovie, value); }
+            set { SetValue(ref _selectedMovie, value); }
         }
 
         private string _movieTitle;
@@ -94,10 +94,18 @@ namespace MoviesTT.ViewModels
         public string MovieTitle
         {
             get { return _movieTitle; }
-            set {SetValue(ref _movieTitle, value);
-                if (value.Length >= 3)
-                {
+            set
+            {
+                SetValue(ref _movieTitle, value);
+                //search if string equals 3
+                if (value.Length == 3)
+                { 
                     SearchTheMovie();
+                }
+                //set default list if null or empty string
+                if (string.IsNullOrEmpty(value))
+                {
+                    LoadDefault();
                 }
             }
         }
@@ -150,6 +158,7 @@ namespace MoviesTT.ViewModels
                     .Take(10)
                     .Select(mov => new Movie()
                     {
+                        id = mov.id,
                         title = mov.title,
                         vote_average = mov.vote_average,
                         poster_path = $"{Constants.ImgUrlW200}{mov.poster_path}"
@@ -169,6 +178,7 @@ namespace MoviesTT.ViewModels
                     .Take(10)
                     .Select(mov => new Movie()
                     {
+                        id = mov.id,
                         title = mov.title,
                         vote_average = mov.vote_average,
                         poster_path = $"{Constants.ImgUrlW200}{mov.poster_path}"
@@ -190,19 +200,29 @@ namespace MoviesTT.ViewModels
             ObUpcomingCatg = new ObservableCollection<Movie>(filterUpcoming);
         }
 
+        private void LoadDefault()
+        {
+            ObPupularCatg = new ObservableCollection<Movie>(PopularLst);
+            ObTopRatedCatg = new ObservableCollection<Movie>(TopRatedLst);
+            ObUpcomingCatg = new ObservableCollection<Movie>(UpComingLst);
+        }
+
         private async void NavigateTo()
         {
             try
             {
                 if (SelectedMovie != null)
                 {
-                    await Navigation.PushAsync(new MovieDetails(SelectedMovie.id));
+                    var movie = SelectedMovie.id;
                     SelectedMovie = null;
+
+                    await Navigation.PushAsync(new MovieDetails(movie));
+                    //SelectedMovie = null;
                 }
             }
             catch (System.Exception ex)
             {
-                System.Console.WriteLine( ex.ToString());
+                System.Console.WriteLine(ex.ToString());
             }
         }
     }
