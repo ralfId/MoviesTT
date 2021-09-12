@@ -53,8 +53,8 @@
                             ItemsLayout="HorizontalList"
                             ItemsSource="{Binding ObPupularCatg}"
                             SelectedItem="{Binding SelectedMovie}"
-                            SelectionMode="Single"
-                            SelectionChangedCommand="{Binding OnSelectedItemCommand}">
+                            SelectionChangedCommand="{Binding OnSelectedItemCommand}"
+                            SelectionMode="Single">
                             <CollectionView.ItemTemplate>
                                 <DataTemplate>
                                     <StackLayout>
@@ -65,20 +65,26 @@
                                             RowDefinitions="auto, auto, auto"
                                             RowSpacing="0">
 
-                                            <Image Aspect="AspectFit" HeightRequest="150">
-                                                <Image.Source>
-                                                    <UriImageSource
+                                            <Frame Padding="0"
+                                                   HeightRequest="150"
+                                                   CornerRadius="10"
+                                                   IsClippedToBounds="True">
+                                                <Image Aspect="AspectFit" >
+                                                    <Image.Source>
+                                                        <UriImageSource
                                                         CacheValidity="15"
                                                         CachingEnabled="True"
                                                         Uri="{Binding poster_path}" />
-                                                </Image.Source>
-                                            </Image>
+                                                    </Image.Source>
+                                                </Image>
+                                            </Frame>
                                             <Label
                                                 Grid.Row="1"
                                                 HorizontalOptions="StartAndExpand"
                                                 LineBreakMode="TailTruncation"
                                                 Text="{Binding title, Converter={StaticResource TitleToShortTitle}}"
-                                                TextType="Text" />
+                                                TextType="Text" 
+                                                FontAttributes="Bold"/>
                                             <Label
                                                 Grid.Row="2"
                                                 HorizontalOptions="End"

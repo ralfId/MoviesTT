@@ -12,7 +12,8 @@ namespace MoviesTT.Utils
         public const string TopRatedCategory = "upcoming";
         public const string UpcomingCategory = "top_rated";
 
-        public const string ImagesBaseUrl = "https://image.tmdb.org/t/p/w200/";
+        public const string ImgUrlW200 = "https://image.tmdb.org/t/p/w200";
+        public const string ImgUrlOriginal = "https://image.tmdb.org/t/p/original/";
 
     }
 }
