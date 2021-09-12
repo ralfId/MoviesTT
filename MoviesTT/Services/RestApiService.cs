@@ -62,5 +62,26 @@ namespace MoviesTT.Services
 
             return default(T);
         }
+
+        public async Task<T> GetMovieCredits<T>(int id)
+        {
+            try
+            {
+                var response = await _httpClient.GetAsync($"{id}/credits?api_key={Constants.ApiKey}&language=en-US"); ;
+                if (response.IsSuccessStatusCode)
+                {
+                    var objs = await response.Content.ReadAsStringAsync();
+                    return JsonConvert.DeserializeObject<T>(objs);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("error to get category: " + ex.ToString());
+            }
+
+            return default(T);
+        }
+
+
     }
 }
