@@ -1,10 +1,7 @@
 ﻿using MoviesTT.Models;
 using MoviesTT.Services;
 using MoviesTT.Utils;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Text;
 using Xamarin.Forms;
 using System.Linq;
 using System.Threading.Tasks;
@@ -15,30 +12,19 @@ namespace MoviesTT.ViewModels
 {
     public class MainPageViewModel : BaseViewModel
     {
-
-
-
-
-        //private string _name;
-
-        //public string Name
-        //{
-        //    get => _name;
-        //    set => SetValue(ref _name, value);
-        //}
-
-
         IRestApiService _restApiService;
+
         public MainPageViewModel(INavigation navigation) : base(navigation)
         {
             _restApiService = DependencyService.Get<IRestApiService>();
 
+            OnSelectedItemCommand = new Command(NavigateTo);
+
             Init();
         }
 
-       
-
-
+        
+        public ICommand OnSelectedItemCommand { get; private set; }
         #region Properties
 
         private ObservableCollection<Movie> _obtopRatedCatg;
@@ -101,12 +87,13 @@ namespace MoviesTT.ViewModels
 
         #endregion
 
-        private async void Init()
+        public async void Init()
         {
             await GetPupularMovies();
             await GetTopRatedMovies();
             await GetUpcomingMovies();
         }
+
         public async Task GetPupularMovies()
         {
             var categResp = await _restApiService.GetCategory<Category>(Constants.PopularCategory);
@@ -117,9 +104,10 @@ namespace MoviesTT.ViewModels
                     (categResp.results
                     .Take(10)
                     .Select(mov => new Movie() {
+                        id= mov.id,
                         title = mov.title,
                         vote_average = mov.vote_average,
-                        poster_path = $"{Constants.ImagesBaseUrl}{mov.poster_path}"
+                        poster_path = $"{Constants.ImgUrlW200}{mov.poster_path}"
                         }).ToList());
             }
         }
@@ -137,7 +125,7 @@ namespace MoviesTT.ViewModels
                     {
                         title = mov.title,
                         vote_average = mov.vote_average,
-                        poster_path = $"{Constants.ImagesBaseUrl}{mov.poster_path}"
+                        poster_path = $"{Constants.ImgUrlW200}{mov.poster_path}"
                     }).ToList());
             }
         }
@@ -155,12 +143,26 @@ namespace MoviesTT.ViewModels
                     {
                         title = mov.title,
                         vote_average = mov.vote_average,
-                        poster_path = $"{Constants.ImagesBaseUrl}{mov.poster_path}"
+                        poster_path = $"{Constants.ImgUrlW200}{mov.poster_path}"
                     }).ToList());
             }
         }
 
+       
 
-
+        private async void NavigateTo()
+        {
+            try
+            {
+                if (SelectedMovie != null)
+                {
+                    await Navigation.PushAsync(new MovieDetails(SelectedMovie.id));
+                }
+            }
+            catch (System.Exception ex)
+            {
+                System.Console.WriteLine( ex.ToString());
+            }
+        }
     }
 }
