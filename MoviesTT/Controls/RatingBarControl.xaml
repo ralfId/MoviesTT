@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<Grid
+    x:Class="MoviesTT.Controls.RatingBarControl"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    ColumnDefinitions="15,15,15,15,15"
+    RowDefinitions="25">
+
+    <Frame
+        Grid.Column="0"
+        Margin="0"
+        Padding="0"
+        BackgroundColor="Transparent">
+        <Path
+            x:Name="star1"
+            Aspect="Uniform"
+            Data="m187.065,259.63825l99.31187,0l30.68813,-92.43602l30.68815,92.43602l99.31185,0l-80.34484,57.12795l30.68972,92.43602l-80.34488,-57.1295l-80.34486,57.1295l30.68973,-92.43602l-80.34487,-57.12795z" />
+    </Frame>
+
+    <Frame
+        Grid.Column="1"
+        Margin="0"
+        Padding="0"
+        BackgroundColor="Transparent">
+        <Path
+            x:Name="star2"
+            Aspect="Uniform"
+            Data="m187.065,259.63825l99.31187,0l30.68813,-92.43602l30.68815,92.43602l99.31185,0l-80.34484,57.12795l30.68972,92.43602l-80.34488,-57.1295l-80.34486,57.1295l30.68973,-92.43602l-80.34487,-57.12795z" />
+    </Frame>
+
+    <Frame
+        Grid.Column="2"
+        Margin="0"
+        Padding="0"
+        BackgroundColor="Transparent">
+        <Path
+            x:Name="star3"
+            Aspect="Uniform"
+            Data="m187.065,259.63825l99.31187,0l30.68813,-92.43602l30.68815,92.43602l99.31185,0l-80.34484,57.12795l30.68972,92.43602l-80.34488,-57.1295l-80.34486,57.1295l30.68973,-92.43602l-80.34487,-57.12795z" />
+    </Frame>
+
+    <Frame
+        Grid.Column="3"
+        Margin="0"
+        Padding="0"
+        BackgroundColor="Transparent">
+        <Path
+            x:Name="star4"
+            Aspect="Uniform"
+            Data="m187.065,259.63825l99.31187,0l30.68813,-92.43602l30.68815,92.43602l99.31185,0l-80.34484,57.12795l30.68972,92.43602l-80.34488,-57.1295l-80.34486,57.1295l30.68973,-92.43602l-80.34487,-57.12795z" />
+    </Frame>
+    <Frame
+        Grid.Column="4"
+        Margin="0"
+        Padding="0"
+        BackgroundColor="Transparent">
+        <Path
+            x:Name="star5"
+            Aspect="Uniform"
+            Data="m187.065,259.63825l99.31187,0l30.68813,-92.43602l30.68815,92.43602l99.31185,0l-80.34484,57.12795l30.68972,92.43602l-80.34488,-57.1295l-80.34486,57.1295l30.68973,-92.43602l-80.34487,-57.12795z" />
+    </Frame>
+
+</Grid>

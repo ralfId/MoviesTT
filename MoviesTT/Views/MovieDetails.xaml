@@ -3,6 +3,8 @@
     x:Class="MoviesTT.Views.MovieDetails"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:MoviesTT.Controls"
+    BackgroundColor="#35364B"
     NavigationPage.HasNavigationBar="False">
     <ContentPage.Content>
         <ScrollView Padding="0,0,0,30">
@@ -25,32 +27,47 @@
                     RowDefinitions="auto,40, auto">
                     <Label
                         Grid.Row="0"
-                        Grid.ColumnSpan="2"
+                        Grid.Column="0"
                         FontAttributes="Bold"
                         FontSize="Title"
                         Text="{Binding MovieD.title}"
-                        TextColor="Black" />
-                    <Frame
-                        Grid.Row="1"
-                        Grid.Column="0"
-                        BackgroundColor="Gray"
-                        CornerRadius="15" />
-                    <Label
-                        Grid.Row="1"
-                        Grid.Column="0"
-                        FontAttributes="Bold"
-                        FontSize="Title"
-                        HorizontalOptions="Center"
-                        Text="Watch Now"
                         TextColor="White" />
 
-                    <Label
+                    <Path
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        Aspect="Uniform"
+                        Fill="white"
+                        Data="M278.743,29.29H11.519C5.157,29.29,0,34.447,0,40.809v128.645v11.355v68.645c0,6.361,5.157,11.519,11.519,11.519h267.225
+		c6.361,0,11.519-5.157,11.519-11.519v-68.645v-11.355V40.809C290.262,34.447,285.104,29.29,278.743,29.29z M56.563,185.959H33.751
+		v15.375H54.19v4.813H33.751v18.748h-4.996v-43.748h27.809V185.959z M99.69,206.895c0,11.375-6.875,18.252-18.313,18.252
+		c-11.5,0-18.436-6.877-18.436-18.252v-25.748h5v25.748c0,8.5,5.122,13.439,13.436,13.439c8.313,0,13.313-4.939,13.313-13.439
+		v-25.748h5V206.895z M136.13,224.895h-24.188v-43.748h5v39.002h19.188V224.895z M168.444,224.895h-24.188v-43.748h4.998v39.002
+		h19.189V224.895z M214.693,224.895h-11.126v-16.998h-18.121v16.998h-11.127v-43.748h11.127v18h18.121v-18h11.126V224.895z
+		 M241.822,224.895h-18.376v-25.201h11.125v16.33h7.938c6.812,0,11.688-5.254,11.688-12.939c0-7.754-5.126-13.063-12.188-13.063
+		h-18.563v-8.875h18.813c13.75,0,23.248,8.875,23.248,21.873C265.507,215.957,255.882,224.895,241.822,224.895z M267.225,157.935
+		H23.037V52.327h244.188V157.935z"
+                        HeightRequest="25"
+                        WidthRequest="25"
+                        VerticalOptions="Center"
+                        HorizontalOptions="End"/>
+
+                    <Button
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        Padding="10,5"
+                        CornerRadius="30"
+                        HorizontalOptions="StartAndExpand"
+                        Text="WHATCH NOW"
+                        WidthRequest="150" />
+
+
+                    <controls:RatingBarControl
                         Grid.Row="1"
                         Grid.Column="1"
-                        FontAttributes="Bold"
-                        FontSize="Title"
-                        HorizontalOptions="End"
-                        Text="{Binding MovieD.vote_average}" />
+                        HorizontalOptions="EndAndExpand"
+                        MovieScore="{Binding MovieD.vote_average}"
+                        VerticalOptions="Center" />
                     <!--  overview  -->
                     <Label
                         Grid.Row="2"
@@ -62,12 +79,13 @@
                 </Grid>
 
                 <!--  Actors  -->
-                <CollectionView BackgroundColor="Aqua"
+                <CollectionView
+                    BackgroundColor="Aqua"
                     FlowDirection="LeftToRight"
+                    HeightRequest="200"
                     ItemsLayout="HorizontalList"
                     ItemsSource="{Binding ObActorsCast}"
-                    SelectionMode="None"
-                                HeightRequest="200">
+                    SelectionMode="None">
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
                             <StackLayout>
@@ -78,28 +96,30 @@
                                     RowDefinitions="auto, auto"
                                     RowSpacing="0">
 
-                                    <Frame Padding="0"
-                                           WidthRequest="150"
-                                           HeightRequest="150"
-                                           CornerRadius="100"
-                                           IsClippedToBounds="True">
-                                        <Image Aspect="AspectFill"
-                                               WidthRequest="150"
-                                           HeightRequest="150">
+                                    <Frame
+                                        Padding="0"
+                                        CornerRadius="100"
+                                        HeightRequest="150"
+                                        IsClippedToBounds="True"
+                                        WidthRequest="150">
+                                        <Image
+                                            Aspect="AspectFill"
+                                            HeightRequest="150"
+                                            WidthRequest="150">
                                             <Image.Source>
                                                 <UriImageSource
-                                                CacheValidity="15"
-                                                CachingEnabled="True"
-                                                Uri="{Binding profile_path}" />
+                                                    CacheValidity="15"
+                                                    CachingEnabled="True"
+                                                    Uri="{Binding profile_path}" />
                                             </Image.Source>
                                         </Image>
                                     </Frame>
                                     <Label
                                         Grid.Row="1"
+                                        FontSize="Large"
                                         HorizontalOptions="Center"
                                         LineBreakMode="TailTruncation"
-                                        Text="{Binding name}"
-                                        FontSize="Large"/>
+                                        Text="{Binding name}" />
                                 </Grid>
                             </StackLayout>
 
