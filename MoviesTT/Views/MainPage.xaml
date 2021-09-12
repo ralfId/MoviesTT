@@ -41,10 +41,6 @@
                         LineBreakMode="TailTruncation"
                         Text="{Binding title, Converter={StaticResource TitleToShortTitle}}"
                         TextColor="White" />
-                    <!--<Label
-                                                Grid.Row="2"
-                                                HorizontalOptions="End"
-                                                Text="{Binding vote_average}" />-->
                     <controls:RatingBarControl Grid.Row="2" MovieScore="{Binding vote_average}" />
 
                 </Grid>
@@ -53,22 +49,24 @@
     </ContentPage.Resources>
     <ContentPage.Content>
         <ScrollView>
-            <Grid RowDefinitions="180, auto">
+            <Grid RowDefinitions="auto, auto"
+                  RowSpacing="10">
 
-                <StackLayout Grid.Row="0" Padding="30,40,30,0">
+                <StackLayout Grid.Row="0" Padding="30,40,30,30">
                     <Grid RowDefinitions="*,40">
                         <Label
                             Grid.Row="0"
-                            FontSize="Title"
-                            HorizontalTextAlignment="Center"
+                            FontSize="37"
+                            HorizontalTextAlignment="Start"
                             Text="Hello, what do you want to wath?"
+                            Margin="0,0,0,15"
                             TextColor="White" />
 
                         <SearchBar
                             Grid.Row="1"
                             BackgroundColor="#90C0D8"
                             Placeholder="Search"
-                            PlaceholderColor="Gray"
+                            PlaceholderColor="Gray" 
                             Text="{Binding MovieTitle, Mode=TwoWay}"
                             TextColor="Black" />
 

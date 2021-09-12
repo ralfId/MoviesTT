@@ -7,6 +7,7 @@
     xmlns:controls="clr-namespace:MoviesTT.Controls"
     BackgroundColor="#35364B"
     NavigationPage.HasNavigationBar="False">
+
     <ContentPage.Content>
         <ScrollView Padding="0,0,0,30">
             <StackLayout>
@@ -108,9 +109,10 @@
                             <Label
                                 Margin="10,25,10,10"
                                 FontAttributes="Bold"
-                                FontSize="Title" HorizontalTextAlignment="Center"
+                                FontSize="Title"
+                                HorizontalTextAlignment="Center"
                                 Text="No cast listed for this movie."
-                                TextColor="White"/>
+                                TextColor="White" />
                         </StackLayout>
                     </CollectionView.EmptyView>
                     <CollectionView.ItemTemplate>
