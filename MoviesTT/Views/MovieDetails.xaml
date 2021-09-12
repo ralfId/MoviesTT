@@ -2,13 +2,161 @@
 <ContentPage
     x:Class="MoviesTT.Views.MovieDetails"
     xmlns="http://xamarin.com/schemas/2014/forms"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    NavigationPage.HasNavigationBar="False">
     <ContentPage.Content>
-        <StackLayout>
-            <Label
-                HorizontalOptions="CenterAndExpand"
-                Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" />
-        </StackLayout>
+        <ScrollView Padding="0,0,0,30">
+            <StackLayout>
+                <!--  Poster movie  -->
+                <Image Aspect="AspectFill" HeightRequest="500">
+                    <Image.Source>
+                        <UriImageSource
+                            CacheValidity="15"
+                            CachingEnabled="True"
+                            Uri="{Binding MovieD.poster_path}" />
+                    </Image.Source>
+                </Image>
+
+
+                <!--  rating, title, watch, overview  -->
+                <Grid
+                    Padding="20,15"
+                    ColumnDefinitions="*,*"
+                    RowDefinitions="auto,40, auto">
+                    <Label
+                        Grid.Row="0"
+                        Grid.ColumnSpan="2"
+                        FontAttributes="Bold"
+                        FontSize="Title"
+                        Text="{Binding MovieD.title}"
+                        TextColor="Black" />
+                    <Frame
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        BackgroundColor="Gray"
+                        CornerRadius="15" />
+                    <Label
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        FontAttributes="Bold"
+                        FontSize="Title"
+                        HorizontalOptions="Center"
+                        Text="Watch Now"
+                        TextColor="White" />
+
+                    <Label
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        FontAttributes="Bold"
+                        FontSize="Title"
+                        HorizontalOptions="End"
+                        Text="{Binding MovieD.vote_average}" />
+                    <!--  overview  -->
+                    <Label
+                        Grid.Row="2"
+                        Grid.ColumnSpan="2"
+                        Margin="0,20,0,0"
+                        FontSize="Medium"
+                        Text="{Binding MovieD.overview}" />
+
+                </Grid>
+
+                <!--  Actors  -->
+                <CollectionView BackgroundColor="Aqua"
+                    FlowDirection="LeftToRight"
+                    ItemsLayout="HorizontalList"
+                    ItemsSource="{Binding ObActorsCast}"
+                    SelectionMode="None"
+                                HeightRequest="200">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <StackLayout>
+
+                                <Grid
+                                    Margin="10"
+                                    BackgroundColor="White"
+                                    RowDefinitions="auto, auto"
+                                    RowSpacing="0">
+
+                                    <Frame Padding="0"
+                                           WidthRequest="150"
+                                           HeightRequest="150"
+                                           CornerRadius="100"
+                                           IsClippedToBounds="True">
+                                        <Image Aspect="AspectFill"
+                                               WidthRequest="150"
+                                           HeightRequest="150">
+                                            <Image.Source>
+                                                <UriImageSource
+                                                CacheValidity="15"
+                                                CachingEnabled="True"
+                                                Uri="{Binding profile_path}" />
+                                            </Image.Source>
+                                        </Image>
+                                    </Frame>
+                                    <Label
+                                        Grid.Row="1"
+                                        HorizontalOptions="Center"
+                                        LineBreakMode="TailTruncation"
+                                        Text="{Binding name}"
+                                        FontSize="Large"/>
+                                </Grid>
+                            </StackLayout>
+
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+                <!--  studio, gender, release  -->
+                <Grid
+                    Padding="20,15"
+                    ColumnDefinitions="auto,*"
+                    ColumnSpacing="10"
+                    RowDefinitions="auto,auto,auto">
+                    <!--  Studio  -->
+                    <Label
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        FontSize="Large"
+                        Text="Studio"
+                        TextColor="Black" />
+
+                    <Label
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        FontSize="Large"
+                        Text="{Binding ProdCompany.name}"
+                        TextColor="Black" />
+                    <!--  Genre  -->
+                    <Label
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        FontSize="Title"
+                        Text="Genre"
+                        TextColor="Black" />
+
+                    <Label
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        FontSize="Large"
+                        Text="{Binding GenrList}"
+                        TextColor="Black" />
+                    <!--  Release  -->
+                    <Label
+                        Grid.Row="2"
+                        Grid.Column="0"
+                        FontSize="Large"
+                        Text="Release"
+                        TextColor="Black" />
+
+                    <Label
+                        Grid.Row="2"
+                        Grid.Column="1"
+                        FontSize="Large"
+                        Text="{Binding MovieD.release_date}"
+                        TextColor="Black" />
+                </Grid>
+            </StackLayout>
+
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>
