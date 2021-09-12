@@ -11,15 +11,51 @@
         <ResourceDictionary>
             <converter:TitleToShortTitle x:Key="TitleToShortTitle" />
         </ResourceDictionary>
+        <DataTemplate x:Key="MovieCard">
+            <StackLayout>
+
+                <Grid
+                    Margin="10"
+                    RowDefinitions="175, auto, 100"
+                    RowSpacing="0">
+
+                    <Frame
+                        Padding="0"
+                        CornerRadius="10"
+                        HeightRequest="150"
+                        IsClippedToBounds="True">
+                        <Image Aspect="Fill">
+                            <Image.Source>
+                                <UriImageSource
+                                    CacheValidity="15"
+                                    CachingEnabled="True"
+                                    Uri="{Binding poster_path}" />
+                            </Image.Source>
+                        </Image>
+                    </Frame>
+                    <Label
+                        Grid.Row="1"
+                        FontAttributes="Bold"
+                        FontSize="18"
+                        HorizontalOptions="StartAndExpand"
+                        LineBreakMode="TailTruncation"
+                        Text="{Binding title, Converter={StaticResource TitleToShortTitle}}"
+                        TextColor="White" />
+                    <!--<Label
+                                                Grid.Row="2"
+                                                HorizontalOptions="End"
+                                                Text="{Binding vote_average}" />-->
+                    <controls:RatingBarControl Grid.Row="2" MovieScore="{Binding vote_average}" />
+
+                </Grid>
+            </StackLayout>
+        </DataTemplate>
     </ContentPage.Resources>
     <ContentPage.Content>
         <ScrollView>
             <Grid RowDefinitions="180, auto">
 
-                <StackLayout
-                    Grid.Row="0"
-                    Padding="30,40,30,0"
-                    >
+                <StackLayout Grid.Row="0" Padding="30,40,30,0">
                     <Grid RowDefinitions="*,40">
                         <Label
                             Grid.Row="0"
@@ -28,21 +64,31 @@
                             Text="Hello, what do you want to wath?"
                             TextColor="White" />
 
-                        <SearchBar Grid.Row="1" BackgroundColor="#90C0D8" />
+                        <SearchBar
+                            Grid.Row="1"
+                            BackgroundColor="#90C0D8"
+                            Placeholder="Search"
+                            PlaceholderColor="Gray"
+                            Text="{Binding MovieTitle, Mode=TwoWay}"
+                            TextColor="Black" />
                     </Grid>
 
                 </StackLayout>
 
-                <Path Grid.Row="1"  Aspect="Fill"
-                      Margin="-10"
-                          Data="M 37.639007,16.901535 H 175.23182 c 7.16095,0 12.9259,5.764952 12.9259,12.9259 V 281.40139 H 24.713106 V 29.827435 c 0,-7.160948 5.764952,-12.9259 12.925901,-12.9259 z" Fill="#35364B"/>
-                <Grid Grid.Row="1" RowDefinitions="300,300,300" Padding="0,15">
-                    
+                <Path
+                    Grid.Row="1"
+                    Margin="-10"
+                    Aspect="Fill"
+                    Data="M 37.639007,16.901535 H 175.23182 c 7.16095,0 12.9259,5.764952 12.9259,12.9259 V 281.40139 H 24.713106 V 29.827435 c 0,-7.160948 5.764952,-12.9259 12.925901,-12.9259 z"
+                    Fill="#35364B" />
+                <Grid
+                    Grid.Row="1"
+                    Padding="0,15"
+                    RowDefinitions="300,300,300">
+
 
                     <!--  RECOMMENDED FOR YOU (POPULAR)  -->
-                    <Grid
-                        Grid.Row="0"
-                        RowDefinitions="auto, auto">
+                    <Grid Grid.Row="0" RowDefinitions="auto, auto">
                         <Label
                             Grid.Row="0"
                             Padding="10"
@@ -51,62 +97,22 @@
                         <CollectionView
                             Grid.Row="1"
                             FlowDirection="LeftToRight"
+                            ItemSizingStrategy="MeasureFirstItem"
+                            ItemTemplate="{StaticResource MovieCard}"
                             ItemsLayout="HorizontalList"
                             ItemsSource="{Binding ObPupularCatg}"
                             SelectedItem="{Binding SelectedMovie}"
                             SelectionChangedCommand="{Binding OnSelectedItemCommand}"
-                            SelectionMode="Single"
-                            ItemSizingStrategy="MeasureFirstItem">
-                            <CollectionView.ItemTemplate>
-                                <DataTemplate>
-                                    <StackLayout>
-
-                                        <Grid
-                                            Margin="10"
-                                            RowDefinitions="175, auto, 100"
-                                            RowSpacing="0">
-
-                                            <Frame
-                                                Padding="0"
-                                                CornerRadius="10"
-                                                HeightRequest="150"
-                                                IsClippedToBounds="True">
-                                                <Image Aspect="Fill">
-                                                    <Image.Source>
-                                                        <UriImageSource
-                                                            CacheValidity="15"
-                                                            CachingEnabled="True"
-                                                            Uri="{Binding poster_path}" />
-                                                    </Image.Source>
-                                                </Image>
-                                            </Frame>
-                                            <Label
-                                                Grid.Row="1"
-                                                FontAttributes="Bold"
-                                                FontSize="18"
-                                                HorizontalOptions="StartAndExpand"
-                                                LineBreakMode="TailTruncation"
-                                                Text="{Binding title, Converter={StaticResource TitleToShortTitle}}"
-                                                TextColor="White" />
-                                            <!--<Label
-                                                Grid.Row="2"
-                                                HorizontalOptions="End"
-                                                Text="{Binding vote_average}" />-->
-                                            <controls:RatingBarControl Grid.Row="2" MovieScore="{Binding vote_average}" />
-
-                                        </Grid>
-                                    </StackLayout>
-
-                                </DataTemplate>
-                            </CollectionView.ItemTemplate>
+                            SelectionMode="Single">
+                            <CollectionView.EmptyView>
+                                <controls:EmptyView />
+                            </CollectionView.EmptyView>
                         </CollectionView>
 
                     </Grid>
 
                     <!--  TOP RATED (TOP_RATED)  -->
-                    <Grid
-                        Grid.Row="1"
-                        RowDefinitions="auto, auto">
+                    <Grid Grid.Row="1" RowDefinitions="auto, auto">
                         <Label
                             Grid.Row="0"
                             Padding="10"
@@ -115,62 +121,22 @@
                         <CollectionView
                             Grid.Row="1"
                             FlowDirection="LeftToRight"
+                            ItemSizingStrategy="MeasureFirstItem"
+                            ItemTemplate="{StaticResource MovieCard}"
                             ItemsLayout="HorizontalList"
                             ItemsSource="{Binding ObTopRatedCatg}"
                             SelectedItem="{Binding SelectedMovie}"
                             SelectionChangedCommand="{Binding OnSelectedItemCommand}"
-                            SelectionMode="Single"
-                            ItemSizingStrategy="MeasureFirstItem">
-                            <CollectionView.ItemTemplate>
-                                <DataTemplate>
-                                    <StackLayout>
-
-                                        <Grid
-                                            Margin="10"
-                                            RowDefinitions="175, auto, 100"
-                                            RowSpacing="0">
-
-                                            <Frame
-                                                Padding="0"
-                                                CornerRadius="10"
-                                                HeightRequest="150"
-                                                IsClippedToBounds="True">
-                                                <Image Aspect="Fill">
-                                                    <Image.Source>
-                                                        <UriImageSource
-                                                            CacheValidity="15"
-                                                            CachingEnabled="True"
-                                                            Uri="{Binding poster_path}" />
-                                                    </Image.Source>
-                                                </Image>
-                                            </Frame>
-                                            <Label
-                                                Grid.Row="1"
-                                                FontAttributes="Bold"
-                                                FontSize="18"
-                                                HorizontalOptions="StartAndExpand"
-                                                LineBreakMode="TailTruncation"
-                                                Text="{Binding title, Converter={StaticResource TitleToShortTitle}}"
-                                                TextColor="White" />
-                                            <!--<Label
-                                                Grid.Row="2"
-                                                HorizontalOptions="End"
-                                                Text="{Binding vote_average}" />-->
-                                            <controls:RatingBarControl Grid.Row="2" MovieScore="{Binding vote_average}" />
-
-                                        </Grid>
-                                    </StackLayout>
-
-                                </DataTemplate>
-                            </CollectionView.ItemTemplate>
+                            SelectionMode="Single">
+                            <CollectionView.EmptyView>
+                                <controls:EmptyView />
+                            </CollectionView.EmptyView>
                         </CollectionView>
 
                     </Grid>
 
                     <!--  UPCOMING  (UPCOMING)  -->
-                    <Grid
-                        Grid.Row="2"
-                        RowDefinitions="auto, auto">
+                    <Grid Grid.Row="2" RowDefinitions="auto, auto">
                         <Label
                             Grid.Row="0"
                             Padding="10"
@@ -179,54 +145,16 @@
                         <CollectionView
                             Grid.Row="1"
                             FlowDirection="LeftToRight"
+                            ItemSizingStrategy="MeasureFirstItem"
+                            ItemTemplate="{StaticResource MovieCard}"
                             ItemsLayout="HorizontalList"
                             ItemsSource="{Binding ObUpcomingCatg}"
                             SelectedItem="{Binding SelectedMovie}"
                             SelectionChangedCommand="{Binding OnSelectedItemCommand}"
-                            SelectionMode="Single"
-                            ItemSizingStrategy="MeasureFirstItem">
-                            <CollectionView.ItemTemplate>
-                                <DataTemplate>
-                                    <StackLayout>
-
-                                        <Grid
-                                            Margin="10"
-                                            RowDefinitions="175, auto, 100"
-                                            RowSpacing="0">
-
-                                            <Frame
-                                                Padding="0"
-                                                CornerRadius="10"
-                                                HeightRequest="150"
-                                                IsClippedToBounds="True">
-                                                <Image Aspect="Fill">
-                                                    <Image.Source>
-                                                        <UriImageSource
-                                                            CacheValidity="15"
-                                                            CachingEnabled="True"
-                                                            Uri="{Binding poster_path}" />
-                                                    </Image.Source>
-                                                </Image>
-                                            </Frame>
-                                            <Label
-                                                Grid.Row="1"
-                                                FontAttributes="Bold"
-                                                FontSize="18"
-                                                HorizontalOptions="StartAndExpand"
-                                                LineBreakMode="TailTruncation"
-                                                Text="{Binding title, Converter={StaticResource TitleToShortTitle}}"
-                                                TextColor="White" />
-                                            <!--<Label
-                                                Grid.Row="2"
-                                                HorizontalOptions="End"
-                                                Text="{Binding vote_average}" />-->
-                                            <controls:RatingBarControl Grid.Row="2" MovieScore="{Binding vote_average}" />
-
-                                        </Grid>
-                                    </StackLayout>
-
-                                </DataTemplate>
-                            </CollectionView.ItemTemplate>
+                            SelectionMode="Single">
+                            <CollectionView.EmptyView>
+                                <controls:EmptyView />
+                            </CollectionView.EmptyView>
                         </CollectionView>
 
                     </Grid>

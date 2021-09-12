@@ -7,6 +7,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using MoviesTT.Views;
+using System;
+using System.Collections.Generic;
 
 namespace MoviesTT.ViewModels
 {
@@ -14,6 +16,9 @@ namespace MoviesTT.ViewModels
     {
         IRestApiService _restApiService;
 
+        List<Movie> PopularLst;
+        List<Movie> TopRatedLst;
+        List<Movie> UpComingLst;
         public MainPageViewModel(INavigation navigation) : base(navigation)
         {
             _restApiService = DependencyService.Get<IRestApiService>();
@@ -84,6 +89,29 @@ namespace MoviesTT.ViewModels
             set {SetValue(ref _selectedMovie, value); }
         }
 
+        private string _movieTitle;
+
+        public string MovieTitle
+        {
+            get { return _movieTitle; }
+            set {SetValue(ref _movieTitle, value);
+                if (value.Length >= 3)
+                {
+                    SearchTheMovie();
+                }
+            }
+        }
+
+
+        private string _emptyViewMessage = "No results found";
+
+        public string EmptyViewMessage
+        {
+            get { return _emptyViewMessage; }
+            set { SetValue(ref _emptyViewMessage, value); }
+        }
+
+
         #endregion
 
         public async void Init()
@@ -99,15 +127,16 @@ namespace MoviesTT.ViewModels
 
             if (categResp != null)
             {
-                ObPupularCatg = new ObservableCollection<Movie>
-                    (categResp.results
+                PopularLst = categResp.results
                     .Take(10)
-                    .Select(mov => new Movie() {
-                        id= mov.id,
+                    .Select(mov => new Movie()
+                    {
+                        id = mov.id,
                         title = mov.title,
                         vote_average = mov.vote_average,
                         poster_path = $"{Constants.ImgUrlW200}{mov.poster_path}"
-                        }).ToList());
+                    }).ToList();
+                ObPupularCatg = new ObservableCollection<Movie>(PopularLst);
             }
         }
 
@@ -117,15 +146,16 @@ namespace MoviesTT.ViewModels
 
             if (categResp != null)
             {
-                ObTopRatedCatg = new ObservableCollection<Movie>
-                    (categResp.results
+                TopRatedLst = categResp.results
                     .Take(10)
                     .Select(mov => new Movie()
                     {
                         title = mov.title,
                         vote_average = mov.vote_average,
                         poster_path = $"{Constants.ImgUrlW200}{mov.poster_path}"
-                    }).ToList());
+                    }).ToList();
+
+                ObTopRatedCatg = new ObservableCollection<Movie>(TopRatedLst);
             }
         }
 
@@ -135,19 +165,30 @@ namespace MoviesTT.ViewModels
 
             if (categResp != null)
             {
-                ObUpcomingCatg = new ObservableCollection<Movie>
-                    (categResp.results
+                UpComingLst = categResp.results
                     .Take(10)
                     .Select(mov => new Movie()
                     {
                         title = mov.title,
                         vote_average = mov.vote_average,
                         poster_path = $"{Constants.ImgUrlW200}{mov.poster_path}"
-                    }).ToList());
+                    }).ToList();
+
+                ObUpcomingCatg = new ObservableCollection<Movie>(TopRatedLst);
             }
         }
 
-       
+        private void SearchTheMovie()
+        {
+            var filterPopular = PopularLst.Where(mov => mov.title.ToLower().Contains(MovieTitle.ToLower()));
+            ObPupularCatg = new ObservableCollection<Movie>(filterPopular);
+
+            var filterTopRated = TopRatedLst.Where(mov => mov.title.ToLower().Contains(MovieTitle.ToLower()));
+            ObTopRatedCatg = new ObservableCollection<Movie>(filterTopRated);
+
+            var filterUpcoming = UpComingLst.Where(mov => mov.title.ToLower().Contains(MovieTitle.ToLower()));
+            ObUpcomingCatg = new ObservableCollection<Movie>(filterUpcoming);
+        }
 
         private async void NavigateTo()
         {
