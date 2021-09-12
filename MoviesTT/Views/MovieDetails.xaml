@@ -3,8 +3,8 @@
     x:Class="MoviesTT.Views.MovieDetails"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:controls="clr-namespace:MoviesTT.Controls"
     xmlns:common="clr-namespace:MoviesTT.Common"
+    xmlns:controls="clr-namespace:MoviesTT.Controls"
     BackgroundColor="#35364B"
     NavigationPage.HasNavigationBar="False">
     <ContentPage.Content>
@@ -12,28 +12,32 @@
             <StackLayout>
                 <!--  Poster movie  -->
                 <Grid RowDefinitions="50,auto">
+
+
+                    <Image
+                        Grid.RowSpan="2"
+                        Aspect="AspectFill"
+                        HeightRequest="500">
+                        <Image.Source>
+                            <UriImageSource
+                                CacheValidity="15"
+                                CachingEnabled="True"
+                                Uri="{Binding MovieD.poster_path}" />
+                        </Image.Source>
+                    </Image>
                     <Button
-                        Grid.Row="0"
                         Padding="0"
-                        BackgroundColor="Red"
-                        HorizontalOptions="Start"
-                        >
+                        BackgroundColor="#4035364B"
+                        Command="{Binding GoBackCommand}"
+                        HorizontalOptions="Start">
                         <Button.ImageSource>
-                            <FontImageSource FontFamily="FontIcons"
-                                             Glyph="{x:Static common:IconFont.Monitor}"
-                                             Color="White"
-                                             Size="50"/>
+                            <FontImageSource
+                                FontFamily="FontIcons"
+                                Glyph="{x:Static common:IconFont.ArrowLeft}"
+                                Size="50"
+                                Color="White" />
                         </Button.ImageSource>
                     </Button>
-                <Image Grid.RowSpan="2" Aspect="AspectFill" HeightRequest="500">
-                    <Image.Source>
-                        <UriImageSource
-                            CacheValidity="15"
-                            CachingEnabled="True"
-                            Uri="{Binding MovieD.poster_path}" />
-                    </Image.Source>
-                </Image>
-                    
                 </Grid>
 
 
@@ -53,15 +57,15 @@
                     <Button
                         Grid.Row="0"
                         Grid.Column="1"
-                        HorizontalOptions="End"
-                        BackgroundColor="Transparent"
                         Padding="0"
-                        >
+                        BackgroundColor="Transparent"
+                        HorizontalOptions="End">
                         <Button.ImageSource>
-                            <FontImageSource FontFamily="FontIcons"
-                                             Glyph="{x:Static common:IconFont.Monitor}"
-                                             Color="White"
-                                             Size="20"/>
+                            <FontImageSource
+                                FontFamily="FontIcons"
+                                Glyph="{x:Static common:IconFont.Monitor}"
+                                Size="20"
+                                Color="White" />
                         </Button.ImageSource>
                     </Button>
 
@@ -80,16 +84,15 @@
                         Grid.Column="1"
                         HorizontalOptions="EndAndExpand"
                         MovieScore="{Binding MovieD.vote_average}"
-                        VerticalOptions="Center"
-                        />
+                        VerticalOptions="Center" />
                     <!--  overview  -->
                     <Label
                         Grid.Row="2"
                         Grid.ColumnSpan="2"
                         Margin="0,20,0,0"
                         FontSize="Medium"
-                        Text="{Binding MovieD.overview}" 
-                        TextColor="White"/>
+                        Text="{Binding MovieD.overview}"
+                        TextColor="White" />
 
                 </Grid>
 
@@ -132,9 +135,9 @@
                                         FontSize="Large"
                                         HorizontalOptions="Center"
                                         LineBreakMode="TailTruncation"
-                                        Text="{Binding name}" 
-                                        WidthRequest="100"
-                                        TextColor="White"/>
+                                        Text="{Binding name}"
+                                        TextColor="White"
+                                        WidthRequest="100" />
                                 </Grid>
                             </StackLayout>
 
@@ -151,25 +154,25 @@
                     <Label
                         Grid.Row="0"
                         Grid.Column="0"
+                        FontAttributes="Bold"
                         FontSize="Large"
                         Text="Studio"
-                        TextColor="White" 
-                        FontAttributes="Bold"/>
+                        TextColor="White" />
 
                     <Label
                         Grid.Row="0"
                         Grid.Column="1"
                         FontSize="Large"
                         Text="{Binding ProdCompany.name}"
-                        TextColor="White"  />
+                        TextColor="White" />
                     <!--  Genre  -->
                     <Label
                         Grid.Row="1"
                         Grid.Column="0"
+                        FontAttributes="Bold"
                         FontSize="Title"
                         Text="Genre"
-                        TextColor="White" 
-                        FontAttributes="Bold" />
+                        TextColor="White" />
 
                     <Label
                         Grid.Row="1"
@@ -181,10 +184,10 @@
                     <Label
                         Grid.Row="2"
                         Grid.Column="0"
+                        FontAttributes="Bold"
                         FontSize="Large"
                         Text="Release"
-                        TextColor="White" 
-                        FontAttributes="Bold" />
+                        TextColor="White" />
 
                     <Label
                         Grid.Row="2"

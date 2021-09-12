@@ -84,7 +84,6 @@ namespace MoviesTT.ViewModels
             set {SetValue(ref _selectedMovie, value); }
         }
 
-
         #endregion
 
         public async void Init()
@@ -157,6 +156,7 @@ namespace MoviesTT.ViewModels
                 if (SelectedMovie != null)
                 {
                     await Navigation.PushAsync(new MovieDetails(SelectedMovie.id));
+                    SelectedMovie = null;
                 }
             }
             catch (System.Exception ex)

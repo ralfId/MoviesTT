@@ -8,6 +8,7 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace MoviesTT.ViewModels
@@ -19,12 +20,15 @@ namespace MoviesTT.ViewModels
         public MovieDetailsViewModel(INavigation navigation, int id) : base(navigation)
         {
             _restApiService = DependencyService.Get<IRestApiService>();
+            
             MovieID = id;
             Init();
+
+            GoBackCommand = new Command(GoBack);
         }
 
         public int MovieID { get; set; }
-
+        public ICommand GoBackCommand { get; private set; }
 
 
         private ObservableCollection<Cast> _obActorsCast;
@@ -43,13 +47,13 @@ namespace MoviesTT.ViewModels
             set { SetValue(ref _movieD, value); }
         }
 
-        private Cast _autorCast;
+        //private Cast _autorCast;
 
-        public Cast AutorCast
-        {
-            get { return _autorCast; }
-            set { SetValue(ref _autorCast, value); }
-        }
+        //public Cast AutorCast
+        //{
+        //    get { return _autorCast; }
+        //    set { SetValue(ref _autorCast, value); }
+        //}
 
         private string _profile_path;
         public string profile_path
@@ -98,7 +102,10 @@ namespace MoviesTT.ViewModels
                 if (movCred != null)
                 {
                     //ACTORS-CAST
-                    castsList = movCred.cast.Take(10).Select(actor => new Cast()
+                    
+                    castsList = movCred.cast.Take(10)
+                        .Where(p => p.profile_path != null)
+                        .Select(actor => new Cast()
                     {
                         name = actor.name,
                         profile_path = $"{Constants.ImgUrlW200}{actor.profile_path}"
@@ -149,6 +156,11 @@ namespace MoviesTT.ViewModels
         //    prodComp = companies.FirstOrDefault();
 
         //}
+
+        private async void GoBack()
+        {
+            await Navigation.PopToRootAsync();
+        }
 
     }
 }
