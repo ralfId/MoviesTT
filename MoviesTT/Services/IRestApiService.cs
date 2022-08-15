@@ -10,6 +10,7 @@ namespace MoviesTT.Services
         Task<T> GetCategory<T>(string category);
         Task<T> GetMovieDetails<T>(int id);
         Task<T> GetMovieCredits<T>(int id);
+        Task<T> SearchMovie<T>(string search);
 
         
 

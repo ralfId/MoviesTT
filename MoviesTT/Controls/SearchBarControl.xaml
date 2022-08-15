@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentView
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:renders="clr-namespace:MoviesTT.Renders"
+    xmlns:icons="clr-namespace:MoviesTT.Common"
+    x:Class="MoviesTT.Controls.SearchBarControl">
+    <Frame HeightRequest="40" Margin="20,25,20,20" Padding="7,3" CornerRadius="9">
+        <Grid  ColumnDefinitions="auto,*,auto">
+            <Label Grid.Column="0" FontFamily="Icon" Text="{x:Static icons:IconFont.Search1}"  FontSize="20" VerticalOptions="Center"/>
+            <renders:EntryRender x:Name="entrySearch" Grid.Column="1" Placeholder="Search a movie" Text="{Binding MovieTitle, Mode=TwoWay}"/>
+
+
+            <Label x:Name="xBtn" Grid.Column="2" FontFamily="Icon" Text="{x:Static icons:IconFont.CloseCircled}"  FontSize="25" VerticalOptions="Center">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding DeleteSearchCommand}"/>
+                </Label.GestureRecognizers>
+            </Label>
+        </Grid>
+    </Frame>
+</ContentView>
+

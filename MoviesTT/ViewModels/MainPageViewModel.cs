@@ -19,18 +19,31 @@ namespace MoviesTT.ViewModels
         List<Movie> PopularLst;
         List<Movie> TopRatedLst;
         List<Movie> UpComingLst;
+        List<Movie> searchList;
+
         public MainPageViewModel(INavigation navigation) : base(navigation)
         {
             _restApiService = DependencyService.Get<IRestApiService>();
 
             OnSelectedItemCommand = new Command(NavigateTo);
-
+            DeleteSearchCommand = new Command(LoadDefault);
+            ViewLists = true;
             Init();
         }
 
 
         public ICommand OnSelectedItemCommand { get; private set; }
+        public ICommand DeleteSearchCommand { get; private set; }
+
         #region Properties
+
+        private ObservableCollection<Movie> _searchMovies;
+
+        public ObservableCollection<Movie> SearchMoviesOB
+        {
+            get { return _searchMovies; }
+            set { SetValue(ref _searchMovies, value); }
+        }
 
         private ObservableCollection<Movie> _obtopRatedCatg;
 
@@ -97,16 +110,10 @@ namespace MoviesTT.ViewModels
             set
             {
                 SetValue(ref _movieTitle, value);
+
                 //search if string equals 3
-                if (value.Length == 3)
-                { 
+                if (value.Length >= 3)
                     SearchTheMovie();
-                }
-                //set default list if null or empty string
-                if (string.IsNullOrEmpty(value))
-                {
-                    LoadDefault();
-                }
             }
         }
 
@@ -119,6 +126,12 @@ namespace MoviesTT.ViewModels
             set { SetValue(ref _emptyViewMessage, value); }
         }
 
+        private bool _viewLists;
+        public bool ViewLists
+        {
+            get { return _viewLists; }
+            set { SetValue(ref _viewLists, value); }
+        }
 
         #endregion
 
@@ -188,20 +201,33 @@ namespace MoviesTT.ViewModels
             }
         }
 
-        private void SearchTheMovie()
+        private async void SearchTheMovie()
         {
-            var filterPopular = PopularLst.Where(mov => mov.title.ToLower().Contains(MovieTitle.ToLower()));
-            ObPupularCatg = new ObservableCollection<Movie>(filterPopular);
+            ViewLists = false;
+            var searchResp = await _restApiService.SearchMovie<Category>(MovieTitle);
 
-            var filterTopRated = TopRatedLst.Where(mov => mov.title.ToLower().Contains(MovieTitle.ToLower()));
-            ObTopRatedCatg = new ObservableCollection<Movie>(filterTopRated);
+            if (searchResp != null && searchResp.results.Count > 0)
+            {
+                searchList = searchResp.results
+                    .Take(10)
+                    .Select(mov => new Movie()
+                    {
+                        id = mov.id,
+                        title = mov.title,
+                        vote_average = mov.vote_average,
+                        poster_path = $"{Constants.ImgUrlW200}{mov.poster_path}"
+                    }).ToList();
 
-            var filterUpcoming = UpComingLst.Where(mov => mov.title.ToLower().Contains(MovieTitle.ToLower()));
-            ObUpcomingCatg = new ObservableCollection<Movie>(filterUpcoming);
+                SearchMoviesOB = new ObservableCollection<Movie>(searchList);
+            }
         }
 
         private void LoadDefault()
         {
+            MovieTitle = String.Empty;
+            ViewLists = true;
+            SearchMoviesOB.Clear();
+
             ObPupularCatg = new ObservableCollection<Movie>(PopularLst);
             ObTopRatedCatg = new ObservableCollection<Movie>(TopRatedLst);
             ObUpcomingCatg = new ObservableCollection<Movie>(UpComingLst);
@@ -209,20 +235,12 @@ namespace MoviesTT.ViewModels
 
         private async void NavigateTo()
         {
-            try
+            if (SelectedMovie != null)
             {
-                if (SelectedMovie != null)
-                {
-                    var movie = SelectedMovie.id;
-                    SelectedMovie = null;
+                var movie = SelectedMovie.id;
+                SelectedMovie = null;
 
-                    await Navigation.PushAsync(new MovieDetails(movie));
-                    //SelectedMovie = null;
-                }
-            }
-            catch (System.Exception ex)
-            {
-                System.Console.WriteLine(ex.ToString());
+                await Navigation.PushAsync(new MovieDetails(movie));
             }
         }
     }

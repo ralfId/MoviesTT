@@ -28,15 +28,16 @@
                     </Image>
                     <Button
                         Padding="0"
-                        BackgroundColor="#4035364B"
+                        HeightRequest="50" WidthRequest="50"
+                        BackgroundColor="#9935364B"
                         Command="{Binding GoBackCommand}"
                         HorizontalOptions="Start">
                         <Button.ImageSource>
                             <FontImageSource
                                 FontFamily="FontIcons"
                                 Glyph="{x:Static common:IconFont.ArrowLeft}"
-                                Size="50"
-                                Color="White" />
+                                Size="30"
+                                Color="White"/>
                         </Button.ImageSource>
                     </Button>
                 </Grid>

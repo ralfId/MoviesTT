@@ -82,6 +82,24 @@ namespace MoviesTT.Services
             return default(T);
         }
 
+        public async Task<T> SearchMovie<T>(string search)
+        {
+            try
+            {
+                var url = $"https://api.themoviedb.org/3/search/movie?api_key={Constants.ApiKey}&language=en-US&query={search}&page=1";
+                var response = await _httpClient.GetAsync(url); ;
+                if (response.IsSuccessStatusCode)
+                {
+                    var objs = await response.Content.ReadAsStringAsync();
+                    return JsonConvert.DeserializeObject<T>(objs);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("error to get category: " + ex.ToString());
+            }
 
+            return default(T);
+        }
     }
 }

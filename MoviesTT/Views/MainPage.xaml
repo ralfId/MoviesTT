@@ -6,6 +6,8 @@
     xmlns:controls="clr-namespace:MoviesTT.Controls"
     xmlns:converter="clr-namespace:MoviesTT.Converters"
     BackgroundColor="#60A8D8"
+    xmlns:icons="clr-namespace:MoviesTT.Common"
+    xmlns:renders="clr-namespace:MoviesTT.Renders"
     NavigationPage.HasNavigationBar="False">
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -16,8 +18,8 @@
 
                 <Grid
                     Margin="10"
-                    RowDefinitions="175, auto, 100"
-                    RowSpacing="0">
+                    RowDefinitions="175, auto, auto"
+                    RowSpacing="0" >
 
                     <Frame
                         Padding="0"
@@ -52,26 +54,7 @@
             <Grid RowDefinitions="auto, auto"
                   RowSpacing="10">
 
-                <StackLayout Grid.Row="0" Padding="30,40,30,30">
-                    <Grid RowDefinitions="*,40">
-                        <Label
-                            Grid.Row="0"
-                            FontSize="37"
-                            HorizontalTextAlignment="Start"
-                            Text="Hello, what do you want to wath?"
-                            Margin="0,0,0,15"
-                            TextColor="White" />
-
-                        <SearchBar
-                            Grid.Row="1"
-                            BackgroundColor="#90C0D8"
-                            Placeholder="Search"
-                            PlaceholderColor="Gray" 
-                            Text="{Binding MovieTitle, Mode=TwoWay}"
-                            TextColor="Black" />
-
-                    </Grid>
-                </StackLayout>
+                <controls:SearchBarControl/>
 
                 <Path
                     Grid.Row="1"
@@ -79,10 +62,36 @@
                     Aspect="Fill"
                     Data="M 37.639007,16.901535 H 175.23182 c 7.16095,0 12.9259,5.764952 12.9259,12.9259 V 281.40139 H 24.713106 V 29.827435 c 0,-7.160948 5.764952,-12.9259 12.925901,-12.9259 z"
                     Fill="#35364B" />
+
                 <Grid
                     Grid.Row="1"
+                    Padding="15" >
+                    <Grid.Triggers>
+                        <DataTrigger TargetType="Grid" Binding="{Binding Source={x:Reference movieListUI}, Path=IsVisible}" Value="true">
+                            <Setter Property="IsVisible" Value="false"/>
+                        </DataTrigger>
+                        <DataTrigger TargetType="Grid" Binding="{Binding Source={x:Reference movieListUI}, Path=IsVisible}" Value="false">
+                            <Setter Property="IsVisible" Value="true"/>
+                        </DataTrigger>
+                    </Grid.Triggers>
+                    <CollectionView
+                            ItemSizingStrategy="MeasureFirstItem"
+                            ItemsSource="{Binding SearchMoviesOB}"
+                            SelectedItem="{Binding SelectedMovie}"
+                            SelectionChangedCommand="{Binding OnSelectedItemCommand}"
+                            ItemTemplate="{StaticResource MovieCard}"
+                            SelectionMode="Single" ItemsLayout="VerticalGrid, 2">
+                       
+                        <CollectionView.EmptyView>
+                            <controls:EmptyView />
+                        </CollectionView.EmptyView>
+                    </CollectionView>
+
+                </Grid>
+                <Grid x:Name="movieListUI"
+                    Grid.Row="1"
                     Padding="0,15"
-                    RowDefinitions="300,300,300">
+                    RowDefinitions="300,300,300" IsVisible="{Binding ViewLists}">
 
 
                     <!--  RECOMMENDED FOR YOU (POPULAR)  -->
@@ -157,7 +166,6 @@
                         </CollectionView>
 
                     </Grid>
-
 
                 </Grid>
             </Grid>
