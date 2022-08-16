@@ -4,13 +4,13 @@
 	<application android:label="MoviesTT.Android" android:theme="@style/MainTheme"></application>
 	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 	<queries>
-  <intent>
-    <action android:name="android.intent.action.VIEW" />
-    <data android:scheme="http"/>
-  </intent>
-  <intent>
-    <action android:name="android.intent.action.VIEW" />
-    <data android:scheme="https"/>
-  </intent>
-</queries>
+		<intent>
+			<action android:name="android.intent.action.VIEW" />
+			<data android:scheme="http" />
+		</intent>
+		<intent>
+			<action android:name="android.intent.action.VIEW" />
+			<data android:scheme="https" />
+		</intent>
+	</queries>
 </manifest>

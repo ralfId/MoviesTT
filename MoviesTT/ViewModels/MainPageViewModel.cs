@@ -25,7 +25,7 @@ namespace MoviesTT.ViewModels
         {
             _restApiService = DependencyService.Get<IRestApiService>();
 
-            OnSelectedItemCommand = new Command(NavigateTo);
+            OnSelectedItemCommand = new Command<Movie>(mov => NavigateTo(mov));
             DeleteSearchCommand = new Command(LoadDefault);
             ViewLists = true;
             Init();
@@ -233,16 +233,16 @@ namespace MoviesTT.ViewModels
             ObUpcomingCatg = new ObservableCollection<Movie>(UpComingLst);
         }
 
-        private async void NavigateTo()
+        private async void NavigateTo(Movie movie)
         {
             try
             {
-                if (SelectedMovie != null)
+                if (movie != null)
                 {
-                    var movie = SelectedMovie.id;
+                    var movieId = movie.id;
                     SelectedMovie = null;
 
-                    await Navigation.PushAsync(new MovieDetails(movie));
+                    await Navigation.PushAsync(new MovieDetails(movieId));
                 }
             }
             catch (Exception ex)

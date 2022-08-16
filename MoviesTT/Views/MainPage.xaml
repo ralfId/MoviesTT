@@ -8,47 +8,9 @@
     BackgroundColor="#60A8D8"
     xmlns:icons="clr-namespace:MoviesTT.Common"
     xmlns:renders="clr-namespace:MoviesTT.Renders"
+    xmlns:item="clr-namespace:MoviesTT.Views"
     NavigationPage.HasNavigationBar="False">
-    <ContentPage.Resources>
-        <ResourceDictionary>
-            <converter:TitleToShortTitle x:Key="TitleToShortTitle" />
-        </ResourceDictionary>
-        <DataTemplate x:Key="MovieCard">
-            <StackLayout>
 
-                <Grid
-                    Margin="10"
-                    RowDefinitions="175, auto, auto"
-                    RowSpacing="0" >
-
-                    <Frame
-                        Padding="0"
-                        CornerRadius="10"
-                        HeightRequest="150"
-                        IsClippedToBounds="True">
-                        <Image Aspect="AspectFill">
-                            <Image.Source>
-                                <UriImageSource
-                                    CacheValidity="15"
-                                    CachingEnabled="True"
-                                    Uri="{Binding poster_path}" />
-                            </Image.Source>
-                        </Image>
-                    </Frame>
-                    <Label
-                        Grid.Row="1"
-                        FontAttributes="Bold"
-                        FontSize="18"
-                        HorizontalOptions="StartAndExpand"
-                        LineBreakMode="TailTruncation"
-                        Text="{Binding title, Converter={StaticResource TitleToShortTitle}}"
-                        TextColor="White" />
-                    <controls:RatingBarControl Grid.Row="2" MovieScore="{Binding vote_average}" />
-
-                </Grid>
-            </StackLayout>
-        </DataTemplate>
-    </ContentPage.Resources>
     <ContentPage.Content>
         <ScrollView>
             <Grid RowDefinitions="auto, auto"
@@ -79,22 +41,26 @@
                             ItemsSource="{Binding SearchMoviesOB}"
                             SelectedItem="{Binding SelectedMovie}"
                             SelectionChangedCommand="{Binding OnSelectedItemCommand}"
-                            ItemTemplate="{StaticResource MovieCard}"
                             SelectionMode="Single" ItemsLayout="VerticalGrid, 2">
-                       
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <item:MovieItem/>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
                         <CollectionView.EmptyView>
                             <controls:EmptyView />
                         </CollectionView.EmptyView>
                     </CollectionView>
 
                 </Grid>
+
                 <Grid x:Name="movieListUI"
                     Grid.Row="1"
                     Padding="0,15"
                     RowDefinitions="300,300,300" IsVisible="{Binding ViewLists}">
 
 
-                    <!--  RECOMMENDED FOR YOU (POPULAR)  -->
+                    <!--RECOMMENDED FOR YOU (POPULAR)-->
                     <Grid Grid.Row="0" RowDefinitions="auto, auto">
                         <Label
                             Grid.Row="0"
@@ -102,16 +68,24 @@
                             Text="RECOMMENDED FOR YOU"
                             TextColor="White" />
                         <CollectionView
+                            x:Name="RECOMMENDED"
                             Grid.Row="1"
                             FlowDirection="LeftToRight"
-                            IsEnabled="False"
-                            ItemSizingStrategy="MeasureFirstItem"
-                            ItemTemplate="{StaticResource MovieCard}"
+                            ItemSizingStrategy="MeasureAllItems"
                             ItemsLayout="HorizontalList"
                             ItemsSource="{Binding ObPupularCatg}"
-                            SelectedItem="{Binding SelectedMovie}"
-                            SelectionChangedCommand="{Binding OnSelectedItemCommand}"
-                            SelectionMode="Single">
+                            SelectionMode="Single" HorizontalScrollBarVisibility="Never" >
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <item:MovieItem>
+                                        <item:MovieItem.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding Path=BindingContext.OnSelectedItemCommand, Source={x:Reference RECOMMENDED}}"
+                                                                  CommandParameter="{Binding .}"
+                                                                  NumberOfTapsRequired="1"/>
+                                        </item:MovieItem.GestureRecognizers>
+                                    </item:MovieItem>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
                             <CollectionView.EmptyView>
                                 <controls:EmptyView />
                             </CollectionView.EmptyView>
@@ -119,7 +93,7 @@
 
                     </Grid>
 
-                    <!--  TOP RATED (TOP_RATED)  -->
+                    <!--TOP RATED (TOP_RATED)-->
                     <Grid Grid.Row="1" RowDefinitions="auto, auto">
                         <Label
                             Grid.Row="0"
@@ -127,15 +101,24 @@
                             Text="TOP RATED"
                             TextColor="White" />
                         <CollectionView
+                            x:Name="TOP_RATED"
                             Grid.Row="1"
                             FlowDirection="LeftToRight"
-                            ItemSizingStrategy="MeasureFirstItem"
-                            ItemTemplate="{StaticResource MovieCard}"
+                            ItemSizingStrategy="MeasureAllItems"
                             ItemsLayout="HorizontalList"
                             ItemsSource="{Binding ObTopRatedCatg}"
-                            SelectedItem="{Binding SelectedMovie}"
-                            SelectionChangedCommand="{Binding OnSelectedItemCommand}"
                             SelectionMode="Single">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <item:MovieItem>
+                                        <item:MovieItem.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding Path=BindingContext.OnSelectedItemCommand, Source={x:Reference TOP_RATED}}"
+                                                                  CommandParameter="{Binding .}"
+                                                                  NumberOfTapsRequired="1"/>
+                                        </item:MovieItem.GestureRecognizers>
+                                    </item:MovieItem>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
                             <CollectionView.EmptyView>
                                 <controls:EmptyView />
                             </CollectionView.EmptyView>
@@ -143,7 +126,7 @@
 
                     </Grid>
 
-                    <!--  UPCOMING  (UPCOMING)  -->
+                    <!--UPCOMING  (UPCOMING)-->
                     <Grid Grid.Row="2" RowDefinitions="auto, auto">
                         <Label
                             Grid.Row="0"
@@ -151,15 +134,24 @@
                             Text="UPCOMING"
                             TextColor="White" />
                         <CollectionView
+                            x:Name="UPCOMING"
                             Grid.Row="1"
                             FlowDirection="LeftToRight"
-                            ItemSizingStrategy="MeasureFirstItem"
-                            ItemTemplate="{StaticResource MovieCard}"
+                            ItemSizingStrategy="MeasureAllItems"
                             ItemsLayout="HorizontalList"
                             ItemsSource="{Binding ObUpcomingCatg}"
-                            SelectedItem="{Binding SelectedMovie}"
-                            SelectionChangedCommand="{Binding OnSelectedItemCommand}"
                             SelectionMode="Single">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <item:MovieItem>
+                                        <item:MovieItem.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding Path=BindingContext.OnSelectedItemCommand, Source={x:Reference UPCOMING}}"
+                                                                  CommandParameter="{Binding .}"
+                                                                  NumberOfTapsRequired="1"/>
+                                        </item:MovieItem.GestureRecognizers>
+                                    </item:MovieItem>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
                             <CollectionView.EmptyView>
                                 <controls:EmptyView />
                             </CollectionView.EmptyView>

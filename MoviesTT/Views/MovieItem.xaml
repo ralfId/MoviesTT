@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentView
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:MoviesTT.Controls"
+    xmlns:converter="clr-namespace:MoviesTT.Converters"
+    x:Class="MoviesTT.Views.MovieItem">
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <converter:TitleToShortTitle x:Key="TitleToShortTitle" />
+        </ResourceDictionary>
+
+    </ContentView.Resources>
+    <ContentView.Content>
+         <Grid
+                    Margin="10"
+                    RowDefinitions="175, auto, auto"
+                    RowSpacing="0" >
+                    <Frame
+                        Padding="0"
+                        CornerRadius="10"
+                        HeightRequest="150"
+                        IsClippedToBounds="True">
+                        <Image Aspect="AspectFill">
+                            <Image.Source>
+                                <UriImageSource
+                                    CacheValidity="15"
+                                    CachingEnabled="True"
+                                    Uri="{Binding poster_path}" />
+                            </Image.Source>
+                        </Image>
+                    </Frame>
+                    <Label
+                        Grid.Row="1"
+                        FontAttributes="Bold"
+                        FontSize="18"
+                        HorizontalOptions="StartAndExpand"
+                        LineBreakMode="TailTruncation"
+                        Text="{Binding title, Converter={StaticResource TitleToShortTitle}}"
+                        TextColor="White" />
+                    <controls:RatingBarControl Grid.Row="2" MovieScore="{Binding vote_average}" />
+
+                </Grid>
+    </ContentView.Content>
+</ContentView>
+

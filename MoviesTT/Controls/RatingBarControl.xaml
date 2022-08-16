@@ -10,7 +10,7 @@
         Grid.Column="0"
         Margin="0"
         Padding="0"
-        BackgroundColor="Transparent">
+        BackgroundColor="Transparent" HasShadow="False">
         <Path
             x:Name="star1"
             Aspect="Uniform"
@@ -21,7 +21,7 @@
         Grid.Column="1"
         Margin="0"
         Padding="0"
-        BackgroundColor="Transparent">
+        BackgroundColor="Transparent" HasShadow="False">
         <Path
             x:Name="star2"
             Aspect="Uniform"
@@ -32,7 +32,7 @@
         Grid.Column="2"
         Margin="0"
         Padding="0"
-        BackgroundColor="Transparent">
+        BackgroundColor="Transparent" HasShadow="False">
         <Path
             x:Name="star3"
             Aspect="Uniform"
@@ -43,7 +43,7 @@
         Grid.Column="3"
         Margin="0"
         Padding="0"
-        BackgroundColor="Transparent">
+        BackgroundColor="Transparent" HasShadow="False">
         <Path
             x:Name="star4"
             Aspect="Uniform"
@@ -53,7 +53,7 @@
         Grid.Column="4"
         Margin="0"
         Padding="0"
-        BackgroundColor="Transparent">
+        BackgroundColor="Transparent" HasShadow="False">
         <Path
             x:Name="star5"
             Aspect="Uniform"

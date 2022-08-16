@@ -11,7 +11,7 @@ namespace MoviesTT.Renders
             BindableProperty.Create(nameof(BorderThickness), typeof(int), typeof(EntryRender), 0);
 
         public static BindableProperty PaddingProperty =
-            BindableProperty.Create(nameof(Padding), typeof(Thickness), typeof(EntryRender), new Thickness(5));
+            BindableProperty.Create(nameof(Padding), typeof(Thickness), typeof(EntryRender), new Thickness(0));
 
         public static BindableProperty BorderColorProperty =
             BindableProperty.Create(nameof(BorderColor), typeof(Color), typeof(EntryRender), Color.Transparent);
