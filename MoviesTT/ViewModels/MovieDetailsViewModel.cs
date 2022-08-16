@@ -1,14 +1,14 @@
 ﻿using MoviesTT.Models;
 using MoviesTT.Services;
 using MoviesTT.Utils;
+using MoviesTT.Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Globalization;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace MoviesTT.ViewModels
@@ -17,18 +17,21 @@ namespace MoviesTT.ViewModels
     {
         IRestApiService _restApiService;
         List<Cast> castsList = new List<Cast>();
+
         public MovieDetailsViewModel(INavigation navigation, int id) : base(navigation)
         {
             _restApiService = DependencyService.Get<IRestApiService>();
-            
+
             MovieID = id;
             Init();
 
+            viewTrilerCommand = new Command(GetTrailer);
             GoBackCommand = new Command(GoBack);
         }
 
         public int MovieID { get; set; }
         public ICommand GoBackCommand { get; private set; }
+        public ICommand viewTrilerCommand { get; private set; }
 
 
         private ObservableCollection<Cast> _obActorsCast;
@@ -47,18 +50,10 @@ namespace MoviesTT.ViewModels
             set { SetValue(ref _movieD, value); }
         }
 
-        //private Cast _autorCast;
-
-        //public Cast AutorCast
-        //{
-        //    get { return _autorCast; }
-        //    set { SetValue(ref _autorCast, value); }
-        //}
-
         private string _profile_path;
         public string profile_path
         {
-            get { return _profile_path;; }
+            get { return _profile_path; ; }
             set { SetValue(ref _profile_path, value); }
         }
 
@@ -88,6 +83,7 @@ namespace MoviesTT.ViewModels
         }
 
 
+
         public async void Init()
         {
             await LoadMovieDetail();
@@ -102,14 +98,14 @@ namespace MoviesTT.ViewModels
                 if (movCred != null)
                 {
                     //ACTORS-CAST
-                    
+
                     castsList = movCred.cast.Take(10)
                         .Where(p => p.profile_path != null)
                         .Select(actor => new Cast()
-                    {
-                        name = actor.name,
-                        profile_path = $"{Constants.ImgUrlW200}{actor.profile_path}"
-                    }).ToList();
+                        {
+                            name = actor.name,
+                            profile_path = $"{Constants.ImgUrlW200}{actor.profile_path}"
+                        }).ToList();
 
                     ObActorsCast = new ObservableCollection<Cast>(castsList);
                 }
@@ -150,17 +146,34 @@ namespace MoviesTT.ViewModels
             }
         }
 
-        //private Task<ProductionCountry> GetFirstPC(List<ProductionCompany> companies)
-        //{
-        //    var prodComp = new ProductionCountry();
-        //    prodComp = companies.FirstOrDefault();
-
-        //}
-
         private async void GoBack()
         {
             await Navigation.PopToRootAsync();
         }
 
+        private async void GetTrailer()
+        {
+            try
+            {
+                var videos = await _restApiService.GetVideo<Video>(MovieID);
+
+                if (videos != null && videos.results.Count > 0)
+                {
+                    var trailer = videos.results.Where(v =>  v.type == Constants.Trailer || v.type == Constants.Clip || v.type == Constants.Teaser && v.site == Constants.Youtube).FirstOrDefault();
+
+                    var url = $"{Constants.YoutubeUrl}{trailer.key}";
+
+                    await Browser.OpenAsync(url, BrowserLaunchMode.SystemPreferred);
+                }
+                else
+                {
+                    await App.Current.MainPage.DisplayAlert("No trailer", "This movie it not has a trailer", "Ok");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+        }
     }
 }

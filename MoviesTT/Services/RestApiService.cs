@@ -96,7 +96,27 @@ namespace MoviesTT.Services
             }
             catch (Exception ex)
             {
-                Console.WriteLine("error to get category: " + ex.ToString());
+                Console.WriteLine("error to serach a movie: " + ex.ToString());
+            }
+
+            return default(T);
+        }
+
+        public async Task<T> GetVideo<T>(int movieId)
+        {
+            try
+            {
+                var url = $"{movieId}/videos?api_key={Constants.ApiKey}&language=en-US";
+                var response = await _httpClient.GetAsync(url); ;
+                if (response.IsSuccessStatusCode)
+                {
+                    var objs = await response.Content.ReadAsStringAsync();
+                    return JsonConvert.DeserializeObject<T>(objs);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("error to serach a movie: " + ex.ToString());
             }
 
             return default(T);

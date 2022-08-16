@@ -11,6 +11,7 @@ namespace MoviesTT.Services
         Task<T> GetMovieDetails<T>(int id);
         Task<T> GetMovieCredits<T>(int id);
         Task<T> SearchMovie<T>(string search);
+        Task<T> GetVideo<T>(int movieId);
 
         
 

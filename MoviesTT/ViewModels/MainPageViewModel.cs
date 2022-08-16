@@ -197,7 +197,7 @@ namespace MoviesTT.ViewModels
                         poster_path = $"{Constants.ImgUrlW200}{mov.poster_path}"
                     }).ToList();
 
-                ObUpcomingCatg = new ObservableCollection<Movie>(TopRatedLst);
+                ObUpcomingCatg = new ObservableCollection<Movie>(UpComingLst);
             }
         }
 
@@ -235,12 +235,19 @@ namespace MoviesTT.ViewModels
 
         private async void NavigateTo()
         {
-            if (SelectedMovie != null)
+            try
             {
-                var movie = SelectedMovie.id;
-                SelectedMovie = null;
+                if (SelectedMovie != null)
+                {
+                    var movie = SelectedMovie.id;
+                    SelectedMovie = null;
 
-                await Navigation.PushAsync(new MovieDetails(movie));
+                    await Navigation.PushAsync(new MovieDetails(movie));
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
             }
         }
     }

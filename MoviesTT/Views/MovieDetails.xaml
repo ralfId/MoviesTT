@@ -78,7 +78,7 @@
                         CornerRadius="30"
                         HorizontalOptions="StartAndExpand"
                         Text="WHATCH NOW"
-                        WidthRequest="150" />
+                        WidthRequest="150" Command="{Binding viewTrilerCommand}"/>
 
 
                     <controls:RatingBarControl

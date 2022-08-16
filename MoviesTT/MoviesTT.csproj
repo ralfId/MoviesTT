@@ -13,6 +13,8 @@
   <ItemGroup>
     <None Remove="Common\FontIcons.ttf" />
     <None Remove="Renders\" />
+    <None Remove="Xam.Forms.VideoPlayer" />
+    <None Remove="Xamarin.CommunityToolkit" />
   </ItemGroup>
 
   <ItemGroup>
@@ -22,7 +24,7 @@
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="Xamarin.Forms" Version="5.0.0.2515" />
-    <PackageReference Include="Xamarin.Essentials" Version="1.7.0" />
+    <PackageReference Include="Xamarin.Essentials" Version="1.7.3" />
   </ItemGroup>
 
   <ItemGroup>
