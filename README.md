@@ -22,7 +22,7 @@
 
 #### Android App
 
-<img alt="android screenshot for main page" source="https://github.com/ralfId/AppScreenshots/blob/main/XamApp_MovieUI/Android1.png" width="200"/>
-<img alt="android screenshot searching a movie" source="https://github.com/ralfId/AppScreenshots/blob/main/XamApp_MovieUI/Android2.png" width="200"/>
-<img alt="android screenshot for movie detail" source="https://github.com/ralfId/AppScreenshots/blob/main/XamApp_MovieUI/Android3.png" width="200"/>
+<img alt="android screenshot for main page" src="https://github.com/ralfId/AppScreenshots/blob/main/XamApp_MovieUI/Android1.png" width="200"/>
+<img alt="android screenshot searching a movie" src="https://github.com/ralfId/AppScreenshots/blob/main/XamApp_MovieUI/Android2.png" width="200"/>
+<img alt="android screenshot for movie detail" src="https://github.com/ralfId/AppScreenshots/blob/main/XamApp_MovieUI/Android3.png" width="200"/>
 
