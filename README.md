@@ -27,7 +27,7 @@ iOS
 </td>
 
 <td>
-<img source="https://drive.google.com/file/d/1wKgld-PFrrlZdHZwap4LGRz35rGFn5-Y/view?usp=sharing"/>
+<img source="https://github.com/ralfId/AppScreenshots/blob/main/XamApp_MovieUI/iOS.gif"/>
 </td>
 </table>
 
