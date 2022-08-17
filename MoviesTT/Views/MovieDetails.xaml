@@ -14,11 +14,11 @@
         <ScrollView Padding="0,0,0,30">
             <StackLayout>
                 <!--  Poster movie  -->
-                <Grid RowDefinitions="50,auto">
+                <Grid RowDefinitions="50,auto, 30">
 
 
                     <Image
-                        Grid.RowSpan="2"
+                        Grid.RowSpan="3"
                         Aspect="AspectFill"
                         HeightRequest="500">
                         <Image.Source>
@@ -42,39 +42,25 @@
                                 Color="White"/>
                         </Button.ImageSource>
                     </Button>
+                    <StackLayout Grid.Row="2" BackgroundColor="#e635364B" >
+                        <Label
+                        FontAttributes="Bold"
+                        FontSize="Title"
+                        Text="{Binding MovieD.title}"
+                        TextColor="White" HorizontalTextAlignment="Center" Margin="0,10"/>
+
+                    </StackLayout>
                 </Grid>
 
 
                 <!--  rating, title, watch, overview  -->
                 <Grid
-                    Padding="20,15"
+                    Padding="20,30,20,15"
                     ColumnDefinitions="*,*"
-                    RowDefinitions="auto,40, auto">
-                    <Label
-                        Grid.Row="0"
-                        Grid.Column="0"
-                        FontAttributes="Bold"
-                        FontSize="Title"
-                        Text="{Binding MovieD.title}"
-                        TextColor="White" />
+                    RowDefinitions="auto,auto">
 
                     <Button
                         Grid.Row="0"
-                        Grid.Column="1"
-                        Padding="0"
-                        BackgroundColor="Transparent"
-                        HorizontalOptions="End">
-                        <Button.ImageSource>
-                            <FontImageSource
-                                FontFamily="FontIcons"
-                                Glyph="{x:Static common:IconFont.Monitor}"
-                                Size="20"
-                                Color="White" />
-                        </Button.ImageSource>
-                    </Button>
-
-                    <Button
-                        Grid.Row="1"
                         Grid.Column="0"
                         Padding="10,5"
                         CornerRadius="20"
@@ -84,7 +70,7 @@
 
 
                     <controls:RatingBarControl
-                        Grid.Row="1"
+                        Grid.Row="0"
                         Grid.Column="1"
                         HorizontalOptions="EndAndExpand"
                         MovieScore="{Binding MovieD.vote_average}"
@@ -102,9 +88,8 @@
 
                 <!--  Actors  -->
                 <CollectionView
-                    FlowDirection="LeftToRight"
-                    HeightRequest="200"
-                    ItemsLayout="HorizontalList"
+                    HeightRequest="120"
+                    ItemsLayout="HorizontalGrid, 1"
                     ItemsSource="{Binding ObActorsCast}"
                     SelectionMode="None">
                     <CollectionView.EmptyView>
@@ -127,28 +112,23 @@
                                     RowDefinitions="auto, auto"
                                     RowSpacing="0">
 
-
-                                    <Frame
-                                        Padding="0"
-                                        CornerRadius="200"
-                                        HeightRequest="100"
-                                        IsClippedToBounds="True"
-                                        WidthRequest="100">
-                                        <Image
+                                    <Image
                                             Aspect="AspectFill"
-                                            HeightRequest="150"
-                                            WidthRequest="150">
-                                            <Image.Source>
-                                                <UriImageSource
+                                            HeightRequest="100"
+                                            WidthRequest="100">
+                                        <Image.Source>
+                                            <UriImageSource
                                                     CacheValidity="15"
                                                     CachingEnabled="True"
-                                                    Uri="{Binding profile_path}" />
-                                            </Image.Source>
-                                        </Image>
-                                    </Frame>
+                                                    Uri="{Binding  profile_path}" />
+                                        </Image.Source>
+                                        <Image.Clip>
+                                            <EllipseGeometry RadiusX="50" RadiusY="50" Center="50,50"/>
+                                        </Image.Clip>
+                                    </Image>
                                     <Label
                                         Grid.Row="1"
-                                        FontSize="Large"
+                                        FontSize="Medium"
                                         HorizontalOptions="Center"
                                         LineBreakMode="TailTruncation"
                                         Text="{Binding name}"
@@ -162,7 +142,7 @@
                 </CollectionView>
                 <!--  studio, gender, release  -->
                 <Grid
-                    Padding="20,15"
+                    Padding="20,40,20,20"
                     ColumnDefinitions="auto,*"
                     ColumnSpacing="10"
                     RowDefinitions="auto,auto,auto">

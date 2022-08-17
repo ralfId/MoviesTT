@@ -78,6 +78,13 @@ namespace MoviesTT.ViewModels
             set { SetValue(ref _title, value); }
         }
 
+        private string _release_date;
+
+        public string release_date
+        {
+            get { return _release_date; }
+            set { SetValue(ref _release_date, value); }
+        }
         private double _vote_average;
 
         public double vote_average
@@ -155,7 +162,8 @@ namespace MoviesTT.ViewModels
                         id = mov.id,
                         title = mov.title,
                         vote_average = mov.vote_average,
-                        poster_path = $"{Constants.ImgUrlW200}{mov.poster_path}"
+                        poster_path = $"{Constants.ImgUrlW200}{mov.poster_path}",
+                        release_date = mov.release_date
                     }).ToList();
                 ObPupularCatg = new ObservableCollection<Movie>(PopularLst);
             }
@@ -174,7 +182,8 @@ namespace MoviesTT.ViewModels
                         id = mov.id,
                         title = mov.title,
                         vote_average = mov.vote_average,
-                        poster_path = $"{Constants.ImgUrlW200}{mov.poster_path}"
+                        poster_path = $"{Constants.ImgUrlW200}{mov.poster_path}",
+                        release_date = mov.release_date
                     }).ToList();
 
                 ObTopRatedCatg = new ObservableCollection<Movie>(TopRatedLst);
@@ -194,7 +203,8 @@ namespace MoviesTT.ViewModels
                         id = mov.id,
                         title = mov.title,
                         vote_average = mov.vote_average,
-                        poster_path = $"{Constants.ImgUrlW200}{mov.poster_path}"
+                        poster_path = $"{Constants.ImgUrlW200}{mov.poster_path}",
+                        release_date = mov.release_date
                     }).ToList();
 
                 ObUpcomingCatg = new ObservableCollection<Movie>(UpComingLst);
@@ -215,7 +225,8 @@ namespace MoviesTT.ViewModels
                         id = mov.id,
                         title = mov.title,
                         vote_average = mov.vote_average,
-                        poster_path = $"{Constants.ImgUrlW200}{mov.poster_path}"
+                        poster_path = $"{Constants.ImgUrlW200}{mov.poster_path}",
+                        release_date = mov.release_date
                     }).ToList();
 
                 SearchMoviesOB = new ObservableCollection<Movie>(searchList);

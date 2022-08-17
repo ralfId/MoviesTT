@@ -12,34 +12,35 @@
 
     </ContentView.Resources>
     <ContentView.Content>
-         <Grid
+        <Grid
                     Margin="10"
                     RowDefinitions="175, auto, auto"
                     RowSpacing="0" >
-                    <Frame
+            <Frame
                         Padding="0"
                         CornerRadius="10"
                         IsClippedToBounds="True">
-                        <Image Aspect="AspectFill" WidthRequest="150" HeightRequest="100" Margin="0">
-                            <Image.Source>
-                                <UriImageSource
+                <Image Aspect="AspectFill" WidthRequest="150" HeightRequest="100" Margin="0">
+                    <Image.Source>
+                        <UriImageSource
                                     CacheValidity="15"
                                     CachingEnabled="True"
                                     Uri="{Binding poster_path}" />
-                            </Image.Source>
-                        </Image>
-                    </Frame>
-                    <Label
+                    </Image.Source>
+                </Image>
+            </Frame>
+            <Label
                         Grid.Row="1"
                         FontAttributes="Bold"
                         FontSize="18"
                         HorizontalOptions="StartAndExpand"
                         LineBreakMode="TailTruncation"
-                        Text="{Binding title, Converter={StaticResource TitleToShortTitle}}"
-                        TextColor="White" />
-                    <controls:RatingBarControl Grid.Row="2" MovieScore="{Binding vote_average}" />
+                        Text="{Binding title}"
+                        WidthRequest="150"
+                        TextColor="White" Margin="0,15,0,5"/>
+            <Label Grid.Row="2" Text="{Binding release_date}" TextColor="White" FontSize="Caption"/>
 
-                </Grid>
+        </Grid>
     </ContentView.Content>
 </ContentView>
 
