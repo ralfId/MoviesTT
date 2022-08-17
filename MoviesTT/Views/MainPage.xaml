@@ -4,7 +4,7 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:controls="clr-namespace:MoviesTT.Controls"
-    BackgroundColor="#60A8D8"
+    BackgroundColor="#35364B"
     xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
     ios:Page.UseSafeArea="true"
     xmlns:item="clr-namespace:MoviesTT.Views"
@@ -17,12 +17,21 @@
 
                 <controls:SearchBarControl/>
 
-                <Path
+                   <!--<SearchBar
+                            x:Name="bar"
+                            BackgroundColor="White"
+                            Placeholder="Search"
+                            Margin="20"
+                            PlaceholderColor="Gray"
+                            Text="{Binding MovieTitle, Mode=TwoWay}"
+                            TextColor="Black" />-->
+
+                <!--<Path
                     Grid.Row="1"
                     Margin="-10"
                     Aspect="Fill"
                     Data="M 37.639007,16.901535 H 175.23182 c 7.16095,0 12.9259,5.764952 12.9259,12.9259 V 281.40139 H 24.713106 V 29.827435 c 0,-7.160948 5.764952,-12.9259 12.925901,-12.9259 z"
-                    Fill="#35364B" />
+                    Fill="#35364B" />-->
 
                 <Grid
                     Grid.Row="1"
@@ -102,7 +111,7 @@
                     </Grid>
 
                     <!--TOP RATED (TOP_RATED)-->
-                    <Grid Grid.Row="1" RowDefinitions="auto, auto"  HeightRequest="300">
+                    <Grid Grid.Row="1" RowDefinitions="auto, auto"  HeightRequest="300" >
                         <Label
                             Grid.Row="0"
                             Padding="10"

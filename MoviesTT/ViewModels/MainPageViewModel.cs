@@ -20,6 +20,7 @@ namespace MoviesTT.ViewModels
         List<Movie> TopRatedLst;
         List<Movie> UpComingLst;
         List<Movie> searchList;
+        public bool isSearch { get; set; } = false;
 
         public MainPageViewModel(INavigation navigation) : base(navigation)
         {
@@ -117,10 +118,11 @@ namespace MoviesTT.ViewModels
             set
             {
                 SetValue(ref _movieTitle, value);
-
+                SearchTheMovie(value);
                 //search if string equals 3
-                if (value.Length >= 3)
-                    SearchTheMovie();
+                //if (value.Length >= 3)
+                //    SearchTheMovie();
+
             }
         }
 
@@ -140,6 +142,12 @@ namespace MoviesTT.ViewModels
             set { SetValue(ref _viewLists, value); }
         }
 
+        private bool _btnDeleteSearch;
+        public bool btnDeleteSearch
+        {
+            get { return _btnDeleteSearch; }
+            set { SetValue(ref _btnDeleteSearch, value); }
+        }
         #endregion
 
         public async void Init()
@@ -211,37 +219,51 @@ namespace MoviesTT.ViewModels
             }
         }
 
-        private async void SearchTheMovie()
+        private async void SearchTheMovie(string search)
         {
-            ViewLists = false;
-            var searchResp = await _restApiService.SearchMovie<Category>(MovieTitle);
-
-            if (searchResp != null && searchResp.results.Count > 0)
+            if (search.Length >= 3)
             {
-                searchList = searchResp.results
-                    .Take(10)
-                    .Select(mov => new Movie()
-                    {
-                        id = mov.id,
-                        title = mov.title,
-                        vote_average = mov.vote_average,
-                        poster_path = $"{Constants.ImgUrlW200}{mov.poster_path}",
-                        release_date = mov.release_date
-                    }).ToList();
+                btnDeleteSearch = true;
+                isSearch = true;
+                ViewLists = false;
+                var searchResp = await _restApiService.SearchMovie<Category>(MovieTitle);
 
-                SearchMoviesOB = new ObservableCollection<Movie>(searchList);
+                if (searchResp != null && searchResp.results.Count > 0)
+                {
+                    searchList = searchResp.results
+                        .Take(10)
+                        .Select(mov => new Movie()
+                        {
+                            id = mov.id,
+                            title = mov.title,
+                            vote_average = mov.vote_average,
+                            poster_path = $"{Constants.ImgUrlW200}{mov.poster_path}",
+                            release_date = mov.release_date
+                        }).ToList();
+
+                    SearchMoviesOB = new ObservableCollection<Movie>(searchList);
+                }
             }
+            if (search.Length == 0 && isSearch)
+            {
+                LoadDefault();
+            }
+
+            
         }
 
         private void LoadDefault()
         {
-            MovieTitle = String.Empty;
+            if(MovieTitle.Length > 0)
+                MovieTitle = String.Empty;
+
             ViewLists = true;
             SearchMoviesOB.Clear();
 
             ObPupularCatg = new ObservableCollection<Movie>(PopularLst);
             ObTopRatedCatg = new ObservableCollection<Movie>(TopRatedLst);
             ObUpcomingCatg = new ObservableCollection<Movie>(UpComingLst);
+            btnDeleteSearch = false;
         }
 
         private async void NavigateTo(Movie movie)

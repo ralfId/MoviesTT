@@ -5,16 +5,14 @@
     xmlns:renders="clr-namespace:MoviesTT.Renders"
     xmlns:icons="clr-namespace:MoviesTT.Common"
     x:Class="MoviesTT.Controls.SearchBarControl">
-    <Frame HeightRequest="40" Margin="20,25,20,20" Padding="7,3" CornerRadius="9" HasShadow="False" >
-        <Grid  ColumnDefinitions="auto,*,auto">
-            <Label Grid.Column="0" FontFamily="Icon" Text="{x:Static icons:IconFont.Search1}"  FontSize="20" VerticalOptions="Center"/>
-            <renders:EntryRender x:Name="entrySearch" Grid.Column="1" Placeholder="Search a movie" Text="{Binding MovieTitle, Mode=TwoWay}" />
-            <Label x:Name="xBtn" Grid.Column="2" FontFamily="Icon" Text="{x:Static icons:IconFont.CloseCircled}"  FontSize="25" VerticalOptions="Center">
+    <Grid  ColumnDefinitions="auto,*,auto" HeightRequest="40" Margin="20,25,20,20" Padding="7,3">
+            <renders:EntryRender x:Name="entrySearch" Grid.ColumnSpan="3" Placeholder="Search a movie" Text="{Binding MovieTitle, Mode=TwoWay}" Padding="40,0" BackgroundColor="White" CornerRadius="9"/>
+            <Label Grid.Column="0" FontFamily="Icon" Text="{x:Static icons:IconFont.Search1}"  FontSize="15" VerticalOptions="Center" Padding="15,0,0,0"/>
+            <Label x:Name="xBtn" Grid.Column="2" FontFamily="Icon" Text="{x:Static icons:IconFont.CloseCircled}"  FontSize="20" VerticalOptions="Center" Padding="0,0,10,0" IsVisible="{Binding btnDeleteSearch}" IsEnabled="{Binding btnDeleteSearch}">
                 <Label.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding DeleteSearchCommand}"/>
                 </Label.GestureRecognizers>
             </Label>
         </Grid>
-    </Frame>
 </ContentView>
 

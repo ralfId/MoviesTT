@@ -14,7 +14,7 @@
         <ScrollView Padding="0,0,0,30">
             <StackLayout>
                 <!--  Poster movie  -->
-                <Grid RowDefinitions="50,auto, 30">
+                <Grid RowDefinitions="50,auto" Margin="0,0,0,25">
 
 
                     <Image
@@ -42,17 +42,13 @@
                                 Color="White"/>
                         </Button.ImageSource>
                     </Button>
-                    <StackLayout Grid.Row="2" BackgroundColor="#e635364B" >
-                        <Label
+                </Grid>
+
+                 <Label
                         FontAttributes="Bold"
                         FontSize="Title"
                         Text="{Binding MovieD.title}"
-                        TextColor="White" HorizontalTextAlignment="Center" Margin="0,10"/>
-
-                    </StackLayout>
-                </Grid>
-
-
+                        TextColor="White" HorizontalTextAlignment="Center" Margin="0,5" />
                 <!--  rating, title, watch, overview  -->
                 <Grid
                     Padding="20,30,20,15"

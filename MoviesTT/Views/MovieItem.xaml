@@ -19,7 +19,8 @@
             <Frame
                         Padding="0"
                         CornerRadius="10"
-                        IsClippedToBounds="True">
+                        IsClippedToBounds="True"
+                        HasShadow="False">
                 <Image Aspect="AspectFill" WidthRequest="150" HeightRequest="100" Margin="0">
                     <Image.Source>
                         <UriImageSource
