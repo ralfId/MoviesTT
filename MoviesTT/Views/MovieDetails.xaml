@@ -4,6 +4,8 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:common="clr-namespace:MoviesTT.Common"
+    xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+    ios:Page.UseSafeArea="true"
     xmlns:controls="clr-namespace:MoviesTT.Controls"
     BackgroundColor="#35364B"
     NavigationPage.HasNavigationBar="False">
@@ -31,7 +33,7 @@
                         HeightRequest="50" WidthRequest="50"
                         BackgroundColor="#9935364B"
                         Command="{Binding GoBackCommand}"
-                        HorizontalOptions="Start">
+                        HorizontalOptions="Start" CornerRadius="0">
                         <Button.ImageSource>
                             <FontImageSource
                                 FontFamily="FontIcons"
@@ -75,10 +77,10 @@
                         Grid.Row="1"
                         Grid.Column="0"
                         Padding="10,5"
-                        CornerRadius="30"
+                        CornerRadius="20"
                         HorizontalOptions="StartAndExpand"
                         Text="WHATCH NOW"
-                        WidthRequest="150" Command="{Binding viewTrilerCommand}"/>
+                        WidthRequest="150" Command="{Binding viewTrilerCommand}" BackgroundColor="White"/>
 
 
                     <controls:RatingBarControl

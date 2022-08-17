@@ -4,10 +4,9 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:controls="clr-namespace:MoviesTT.Controls"
-    xmlns:converter="clr-namespace:MoviesTT.Converters"
     BackgroundColor="#60A8D8"
-    xmlns:icons="clr-namespace:MoviesTT.Common"
-    xmlns:renders="clr-namespace:MoviesTT.Renders"
+    xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+    ios:Page.UseSafeArea="true"
     xmlns:item="clr-namespace:MoviesTT.Views"
     NavigationPage.HasNavigationBar="False">
 
@@ -37,14 +36,19 @@
                         </DataTrigger>
                     </Grid.Triggers>
                     <CollectionView
+                        x:Name="SearchList"
                             ItemSizingStrategy="MeasureFirstItem"
                             ItemsSource="{Binding SearchMoviesOB}"
-                            SelectedItem="{Binding SelectedMovie}"
-                            SelectionChangedCommand="{Binding OnSelectedItemCommand}"
                             SelectionMode="Single" ItemsLayout="VerticalGrid, 2">
                         <CollectionView.ItemTemplate>
                             <DataTemplate>
-                                <item:MovieItem/>
+                                <item:MovieItem>
+                                        <item:MovieItem.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding Path=BindingContext.OnSelectedItemCommand, Source={x:Reference SearchList}}"
+                                                                  CommandParameter="{Binding .}"
+                                                                  NumberOfTapsRequired="1"/>
+                                        </item:MovieItem.GestureRecognizers>
+                                    </item:MovieItem>
                             </DataTemplate>
                         </CollectionView.ItemTemplate>
                         <CollectionView.EmptyView>
@@ -71,7 +75,7 @@
                             x:Name="RECOMMENDED"
                             Grid.Row="1"
                             FlowDirection="LeftToRight"
-                            ItemSizingStrategy="MeasureAllItems"
+                            ItemSizingStrategy="MeasureFirstItem"
                             ItemsLayout="HorizontalList"
                             ItemsSource="{Binding ObPupularCatg}"
                             SelectionMode="Single" HorizontalScrollBarVisibility="Never" >
@@ -104,7 +108,7 @@
                             x:Name="TOP_RATED"
                             Grid.Row="1"
                             FlowDirection="LeftToRight"
-                            ItemSizingStrategy="MeasureAllItems"
+                            ItemSizingStrategy="MeasureFirstItem"
                             ItemsLayout="HorizontalList"
                             ItemsSource="{Binding ObTopRatedCatg}"
                             SelectionMode="Single">
@@ -137,7 +141,7 @@
                             x:Name="UPCOMING"
                             Grid.Row="1"
                             FlowDirection="LeftToRight"
-                            ItemSizingStrategy="MeasureAllItems"
+                            ItemSizingStrategy="MeasureFirstItem"
                             ItemsLayout="HorizontalList"
                             ItemsSource="{Binding ObUpcomingCatg}"
                             SelectionMode="Single">
