@@ -15,19 +15,6 @@
     <li>Custom controls</li>
 </ul>
 
-<table>
-<tr>
-Android
-</tr>
-<tr>
-iOS
-</tr>
-<td>
+#### iOS
 ![hippo](https://github.com/ralfId/AppScreenshots/blob/main/XamApp_MovieUI/iOS.gif)
-</td>
-
-<td>
-<img source="https://github.com/ralfId/AppScreenshots/blob/main/XamApp_MovieUI/iOS.gif"/>
-</td>
-</table>
 
