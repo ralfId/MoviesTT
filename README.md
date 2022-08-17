@@ -23,7 +23,8 @@ Android
 iOS
 </tr>
 <td>
-<img source="https://drive.google.com/file/d/1D378dwGaBsEmbKGTVHO7yo5mQfWYYQlT/view?usp=sharing"/>
+<img source="https://github.com/ralfId/AppScreenshots/blob/main/XamApp_MovieUI/iOS.gif?raw=true"/>
+<img alt="Country selection screenshot" src="https://raw.githubusercontent.com/ralfId/AppScreenshots/main/App_Covi_Info/screen_1.jpg" width="200"/>  
 </td>
 
 <td>
